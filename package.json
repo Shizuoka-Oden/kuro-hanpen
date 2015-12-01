@@ -1,0 +1,24 @@
+{
+  "name": "kuro-hanpen",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/Shizuoka-Oden/kuro-hanpen.git"
+  },
+  "author": "",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Shizuoka-Oden/kuro-hanpen/issues"
+  },
+  "homepage": "https://github.com/Shizuoka-Oden/kuro-hanpen",
+  "devDependencies": {
+    "fs": "0.0.2",
+    "gulp": "^3.9.0",
+    "gulp-s3": "^0.3.0"
+  }
+}
