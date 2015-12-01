@@ -4,7 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "echo \"Error: no test specified\" && exit 1",
+	"upload": "gulp upload"
   },
   "repository": {
     "type": "git",
@@ -17,7 +18,6 @@
   },
   "homepage": "https://github.com/Shizuoka-Oden/kuro-hanpen",
   "devDependencies": {
-    "fs": "0.0.2",
     "gulp": "^3.9.0",
     "gulp-s3": "^0.3.0"
   }

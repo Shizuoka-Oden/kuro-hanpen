@@ -1,6 +1,0 @@
-{
-  "key": "Access Key Id",
-  "secret": "Secret Access Key",
-  "bucket": "bucket.name",
-  "region": "ap-northeast-1"
-}
