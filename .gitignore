@@ -28,3 +28,8 @@ node_modules
 
 # gulp-s3 config (https://www.npmjs.com/package/gulp-s3)
 aws.json
+
+bower_components/
+.idea/
+.tmp/
+dist/

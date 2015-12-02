@@ -4,6 +4,7 @@
 
 ```sh
 $ npm install
+$ bower install
 ```
 
 S3バケットとアクセスキーで設定ファイル作成
@@ -20,13 +21,10 @@ $ vi aws.json
 }
 ```
 
-## S3 publish
+## Gulp Tasks
+| task    | description
+|---------|---|
+| default | ビルドを行い、distに実行モジュールをコピーする |
+| serve   | ローカル実行(distにはコピーしない) |
+| upload  | dist配下のファイルを全てS3へアップロード |
 
-dist 配下のファイルを全てS3にアップロード
-```sh
-$ gulp upload
-```
-or
-```sh
-$ npm run upload
-```
