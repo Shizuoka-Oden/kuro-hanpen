@@ -4,7 +4,6 @@
 
 ```sh
 $ npm install
-$ bower install
 ```
 
 S3バケットとアクセスキーで設定ファイル作成
