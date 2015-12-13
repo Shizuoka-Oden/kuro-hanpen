@@ -19,6 +19,7 @@
   },
   "homepage": "https://github.com/Shizuoka-Oden/kuro-hanpen",
   "devDependencies": {
+    "aws-sdk": "^2.2.22",
     "bower": "^1.6.8",
     "browser-sync": "~2.9.11",
     "browser-sync-spa": "~1.0.3",
@@ -59,6 +60,7 @@
     "lodash": "~3.10.1",
     "main-bower-files": "~2.9.0",
     "phantomjs": "~1.9.18",
+    "through2": "^2.0.0",
     "uglify-save-license": "~0.4.1",
     "wiredep": "~2.2.2",
     "wrench": "~1.5.8"
