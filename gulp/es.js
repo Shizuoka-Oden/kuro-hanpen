@@ -1,3 +1,19 @@
+/*
+ * ES 関連のタスク.
+ *   es:init    ES Indexを削除後、空の Index を作成する
+ *   es:regist  ES Index 再作成後、data 配下のファイルを登録する
+ * data 配下の構造
+ *   data/{type名}.json
+ * json ファイルの構造
+ *   [{
+ *     "{key}": "{value}",
+ *     "location": {
+ *       "lat": {double 型},
+ *       "lon": {double 型}
+ *      }
+ *   }]
+ *   ※現状、"location" プロパティ以外はマッピング定義していない.
+ */
 
 'use strict';
 
