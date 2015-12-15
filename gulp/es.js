@@ -1,3 +1,4 @@
+
 'use strict';
 
 var fs = require('fs');
@@ -5,15 +6,19 @@ var path = require('path');
 var gulp = require('gulp');
 var AWS = require('aws-sdk');
 var through = require('through2');
+var conf = require('./conf');
 
-// TODO 設定の外出し
-var esDomain = {
-  endpoint: 'xxx.ap-northeast-1.es.amazonaws.com',
-  region: 'ap-northeast-1',
-  index: 'test'
-};
-var endpoint =  new AWS.Endpoint(esDomain.endpoint);
+var awsConf = JSON.parse(fs.readFileSync('./aws.json'));
+var endpoint =  new AWS.Endpoint(awsConf.es.endpoint);
+
+// 環境変数から AWS 接続情報を読み込む
 var creds = new AWS.EnvironmentCredentials('AWS');
+if(awsConf.key && awsConf.secret) {
+  // aws.json に AWS 接続情報が存在する場合はそちらを優先する
+  creds = new AWS.Credentials();
+  creds.accessKeyId = awsConf.key;
+  creds.secretAccessKey = awsConf.secret;
+}
 
 gulp.task('es:init', () => {
   return deleteIndex()
@@ -21,21 +26,20 @@ gulp.task('es:init', () => {
 });
 
 gulp.task('es:regist', ['es:init'], () => {
-  // TODO data ディレクトリの設定外出し
-  gulp.src('data/*.json')
+  gulp.src(path.join(conf.paths.data, '*.json'))
     .pipe(putMapping())
     .pipe(uploadDocument());
 });
 
 function deleteIndex() {
   return new EsRequest().method('DELETE')
-    .path(path.join('/', esDomain.index))
+    .path(path.join('/', awsConf.es.index))
     .send();
 }
 
 function createIndex() {
   return new EsRequest().method('PUT')
-    .path(path.join('/', esDomain.index))
+    .path(path.join('/', awsConf.es.index))
     .send();
 }
 
@@ -56,7 +60,7 @@ function putMapping() {
     var type = path.basename(filePath, '.json');
 
     new EsRequest().method('PUT')
-      .path(path.join('/', esDomain.index, '_mapping', type))
+      .path(path.join('/', awsConf.es.index, '_mapping', type))
       .body('{properties: {location: {type: "geo_point"}}}')
       .send(file)
       .then((file) => {
@@ -84,7 +88,7 @@ function uploadDocument() {
       filePath = filePath.path;
     }
     new EsRequest().method('POST')
-      .path(path.join('/', esDomain.index, '_bulk'))
+      .path(path.join('/', awsConf.es.index, '_bulk'))
       .body(bulk(filePath))
       .send(file)
       .then((file) => {
@@ -102,11 +106,11 @@ function bulk(filePath) {
   var body = '';
   var id = 1;
   if(!Array.isArray(data)) {
-    body += '{ "index" : { "_index" : "' + esDomain.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
+    body += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
     body += JSON.stringify(data) + '\n';
   } else {
     for(var i = 0 ; i < data.length ; i++ ) {
-      body += '{ "index" : { "_index" : "' + esDomain.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
+      body += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
       body += JSON.stringify(data[i]) + '\n';
     };
   }
@@ -133,7 +137,7 @@ class EsRequest {
   send(file) {
     return new Promise((onFulfilled, onRejected) => {
       var req = new AWS.HttpRequest(endpoint);
-      req.region = esDomain.region;
+      req.region = awsConf.es.region;
       req.headers['Host'] = endpoint.host;
       req.method = this._method;
       req.path = this._path;
@@ -150,14 +154,12 @@ class EsRequest {
           body += chunk;
         });
         httpResp.on('end', (chunk) => {
-          if(JSON.parse(body).errors) {
-            console.error(body);
+          if(JSON.parse(body).errors || JSON.parse(body).message) {
             onRejected(body);
           }
           onFulfilled(file);
         });
       }, (err) => {
-        console.error(err);
         onRejected(err);
       });
     });
