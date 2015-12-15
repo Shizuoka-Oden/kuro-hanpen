@@ -1,0 +1,11 @@
+{
+  "key": "akid",
+  "secret": "secret",
+  "bucket": "bucket.name",
+  "region": "ap-northeast-1",
+  "es": {
+    "endpoint": "xxx.ap-northeast-1.es.amazonaws.com",
+    "index": "oden",
+    "region": "ap-northeast-1"
+  }
+}
