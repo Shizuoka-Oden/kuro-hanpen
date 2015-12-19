@@ -42,8 +42,7 @@ gulp.task('es:init', () => {
 });
 
 gulp.task('es:regist', ['es:init'], () => {
-  gulp.src(path.join(conf.paths.data, '*.json'))
-    .pipe(putMapping())
+  gulp.src([path.join(conf.paths.data, '*.json'), '!' + path.join(conf.paths.data, 'mapping.json')])
     .pipe(uploadDocument());
 });
 
@@ -56,36 +55,8 @@ function deleteIndex() {
 function createIndex() {
   return new EsRequest().method('PUT')
     .path(path.join('/', awsConf.es.index))
+    .body(fs.readFileSync('./data/mapping.json'))
     .send();
-}
-
-function putMapping() {
-  return through.obj((file, enc, callback) => {
-    if(file.isNull()) {
-      callback(null, file);
-      return;
-    }
-    if (file.isStream()) {
-      callback(new Error('Streaming not supported'));
-      return;
-    }
-    var filePath = file;
-    if('object' === typeof filePath) {
-      filePath = filePath.path;
-    }
-    var type = path.basename(filePath, '.json');
-
-    new EsRequest().method('PUT')
-      .path(path.join('/', awsConf.es.index, '_mapping', type))
-      .body('{properties: {location: {type: "geo_point"}}}')
-      .send(file)
-      .then((file) => {
-        callback(null, file);
-      })
-      .catch((err) => {
-        callback(err, file);
-      });
-  });
 }
 
 function uploadDocument() {
@@ -111,6 +82,7 @@ function uploadDocument() {
         callback(null, file);
       })
       .catch((err) => {
+        console.log(err);
         callback(err, file);
       });
   });
@@ -119,19 +91,16 @@ function uploadDocument() {
 function bulk(filePath) {
   var type = path.basename(filePath, '.json');
   var data = JSON.parse(fs.readFileSync(filePath));
-  var body = '';
+  var result = '';
   var id = 1;
-  if(!Array.isArray(data)) {
-    body += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
-    body += JSON.stringify(data) + '\n';
-  } else {
-    for(var i = 0 ; i < data.length ; i++ ) {
-      body += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "' + type + '", "_id" : "' + id++ + '" } }\n';
-      body += JSON.stringify(data[i]) + '\n';
-    };
-  }
 
-  return body;
+  for(var i = 0 ; i < data.length ; i++ ) {
+    data[i].type = type;
+    result += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "location"} }\n';
+    result += JSON.stringify(data[i]) + '\n';
+  };
+
+  return result;
 }
 
 // elasticsearch client を require すると他の task 定義と競合して(?)

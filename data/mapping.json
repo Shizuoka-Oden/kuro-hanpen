@@ -1,0 +1,26 @@
+{
+  "mappings": {
+    "location": {
+      "properties": {
+        "address": {
+          "type": "string"
+        },
+        "type": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "location": {
+          "type": "geo_point"
+        },
+        "title": {
+          "type": "string",
+          "index": "not_analyzed"
+        },
+        "description": {
+          "type": "string",
+          "index": "not_analyzed"
+        }
+      }
+    }
+  }
+}
