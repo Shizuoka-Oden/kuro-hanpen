@@ -1,3 +1,6 @@
+/*
+デフォルトで作成されたスタイルを無効化
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -11,4 +14,17 @@
 
 .thumbnail img.pull-right {
   width: 50px;
+}
+*/
+
+
+/* 画面フルで表示させるため bootstrapのスタイルをリセット */
+.container {
+  padding: 0;
+  margin: 0;
+  width: 100%;
+}
+
+.angular-google-map-container {
+  height: 100vh;
 }
