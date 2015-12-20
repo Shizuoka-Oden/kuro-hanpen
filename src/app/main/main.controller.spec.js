@@ -3,10 +3,24 @@
 
   describe('controllers', function(){
     var vm;
+
+    beforeEach(module('kuro-hanpen'));
+    beforeEach(inject(function(_$controller_) {
+      vm = _$controller_('MainController');
+    }));
+
+    it('should have a map object', function() {
+      expect(vm.map).toEqual(jasmine.any(Object));
+    });
+
+    it('should have map options', function() {
+      expect(vm.options).toEqual(jasmine.any(Object));
+    });
+
+    /*
     var $timeout;
     var toastr;
 
-    beforeEach(module('kuro-hanpen'));
     beforeEach(inject(function(_$controller_, _$timeout_, _webDevTec_, _toastr_) {
       spyOn(_webDevTec_, 'getTec').and.returnValue([{}, {}, {}, {}, {}]);
       spyOn(_toastr_, 'info').and.callThrough();
@@ -35,5 +49,6 @@
       expect(angular.isArray(vm.awesomeThings)).toBeTruthy();
       expect(vm.awesomeThings.length === 5).toBeTruthy();
     });
+    */
   });
 })();
