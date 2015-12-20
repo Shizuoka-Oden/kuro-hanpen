@@ -17,14 +17,6 @@
 }
 */
 
-
-/* 画面フルで表示させるため bootstrapのスタイルをリセット */
-.container {
-  padding: 0;
-  margin: 0;
-  width: 100%;
-}
-
 .angular-google-map-container {
   height: 100vh;
 }
