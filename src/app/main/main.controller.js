@@ -6,6 +6,16 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
+  function MainController() {
+    var vm = this;
+    // 静岡駅を中心地に設定
+    vm.map = { center: { latitude: 34.9714699, longitude: 138.3869833 }, zoom: 12 };
+    // 航空写真との切り替えやストリートビューの切り替えは無効
+    vm.options = { mapTypeControl: false, streetViewControl: false, zoomControl: false };
+  }
+
+
+  /**
   function MainController($timeout, webDevTec, toastr) {
     var vm = this;
 
@@ -36,4 +46,5 @@
       });
     }
   }
+  */
 })();

@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastrConfig) {
+  function config($logProvider, toastrConfig, uiGmapGoogleMapApiProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -16,6 +16,9 @@
     toastrConfig.positionClass = 'toast-top-right';
     toastrConfig.preventDuplicates = true;
     toastrConfig.progressBar = true;
-  }
 
+    // Set Angular Google Maps Settings
+    uiGmapGoogleMapApiProvider.v = '3.20'
+    uiGmapGoogleMapApiProvider.libraries = 'weather,geometry,visualization'
+  }
 })();

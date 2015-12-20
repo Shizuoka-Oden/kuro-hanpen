@@ -1,3 +1,6 @@
+/*
+デフォルトで作成されたスタイルを無効化
+
 .browsehappy {
   margin: 0.2em 0;
   background: #ccc;
@@ -11,4 +14,9 @@
 
 .thumbnail img.pull-right {
   width: 50px;
+}
+*/
+
+.angular-google-map-container {
+  height: 100vh;
 }
