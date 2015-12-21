@@ -15,6 +15,7 @@ var pathSrcJs = [
 ];
 
 function runTests (singleRun, done) {
+  var reporters = ['progress'];
   var preprocessors = {};
 
   pathSrcHtml.forEach(function(path) {
@@ -25,12 +26,15 @@ function runTests (singleRun, done) {
     pathSrcJs.forEach(function(path) {
       preprocessors[path] = ['coverage'];
     });
+    reporters.push('coverage');
+    reporters.push('junit');
   }
 
   var localConfig = {
     configFile: path.join(__dirname, '/../karma.conf.js'),
     singleRun: singleRun,
     autoWatch: !singleRun,
+    reporters: reporters,
     preprocessors: preprocessors
   };
 

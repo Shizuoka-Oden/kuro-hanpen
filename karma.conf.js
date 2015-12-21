@@ -81,7 +81,7 @@ module.exports = function(config) {
       outputDir: 'reports'
     },
 
-    reporters: ['progress', 'junit', 'coverage'],
+    reporters: ['progress'],
 
     proxies: {
       '/assets/': path.join('/base/', conf.paths.src, '/assets/')
