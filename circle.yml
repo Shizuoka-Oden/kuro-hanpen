@@ -5,4 +5,4 @@ machine:
 test:
   post:
     - mkdir -p $CIRCLE_TEST_REPORTS/junit/
-    - mv TESTS-PhantomJS*.xml $CIRCLE_TEST_REPORTS/junit/
+    - mv reports/TESTS-PhantomJS*.xml $CIRCLE_TEST_REPORTS/junit/

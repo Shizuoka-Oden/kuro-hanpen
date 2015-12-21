@@ -77,7 +77,11 @@ module.exports = function(config) {
       dir : 'coverage/'
     },
 
-    reporters: ['progress'],
+    junitReporter: {
+      outputDir: 'reports'
+    },
+
+    reporters: ['progress', 'junit', 'coverage'],
 
     proxies: {
       '/assets/': path.join('/base/', conf.paths.src, '/assets/')

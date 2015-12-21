@@ -10,5 +10,5 @@ bower_components/
 .tmp/
 dist/
 coverage/
-TESTS-PhantomJS_*.xml
+reports/
 
