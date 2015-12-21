@@ -1,5 +1,7 @@
 # kuro-hanpen
 
+[![Circle CI](https://circleci.com/gh/Shizuoka-Oden/kuro-hanpen.svg?style=svg)](https://circleci.com/gh/Shizuoka-Oden/kuro-hanpen)
+
 ## install
 
 ```sh
