@@ -12,7 +12,6 @@
  *       "lon": {double 型}
  *      }
  *   }]
- *   ※現状、"location" プロパティ以外はマッピング定義していない.
  */
 
 'use strict';
@@ -23,19 +22,28 @@ var gulp = require('gulp');
 var AWS = require('aws-sdk');
 var through = require('through2');
 var conf = require('./conf');
+var awsConf = {};
 
-var awsConf = JSON.parse(fs.readFileSync('./aws.json'));
-var endpoint =  new AWS.Endpoint(awsConf.es.endpoint);
-
-// 環境変数から AWS 接続情報を読み込む
+// AWS 接続情報の設定
+// AWS 接続情報設定ファイル(優先)、または環境変数から読み取る
+try {
+  awsConf = JSON.parse(fs.readFileSync('./aws.json'));
+} catch(e) {
+  if(!e.code === 'ENOENT') throw e;
+  awsConf.es = {
+    endpoint:  process.env.AWS_ES_ENDPOINT,
+    index: process.env.AWS_ES_INDEX,
+    region: process.env.AWS_ES_REGION
+  };
+}
 var creds = new AWS.EnvironmentCredentials('AWS');
 if(awsConf.key && awsConf.secret) {
-  // aws.json に AWS 接続情報が存在する場合はそちらを優先する
   creds = new AWS.Credentials();
   creds.accessKeyId = awsConf.key;
   creds.secretAccessKey = awsConf.secret;
 }
 
+// gulp task
 gulp.task('es:init', () => {
   return deleteIndex()
     .then(createIndex);
@@ -46,6 +54,7 @@ gulp.task('es:regist', ['es:init'], () => {
     .pipe(uploadDocument());
 });
 
+// function
 function deleteIndex() {
   return new EsRequest().method('DELETE')
     .path(path.join('/', awsConf.es.index))
@@ -121,6 +130,7 @@ class EsRequest {
   }
   send(file) {
     return new Promise((onFulfilled, onRejected) => {
+      var endpoint = new AWS.Endpoint(awsConf.es.endpoint);
       var req = new AWS.HttpRequest(endpoint);
       req.region = awsConf.es.region;
       req.headers['Host'] = endpoint.host;
@@ -128,7 +138,6 @@ class EsRequest {
       req.path = this._path;
       req.body = this._body;
 
-      // 環境変数の AWS アクセス情報を使用してアクセス
       var signer = new AWS.Signers.V4(req, 'es');
       signer.addAuthorization(creds, new Date());
 
