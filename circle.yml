@@ -4,6 +4,6 @@ machine:
 
 deployment:
   deploy:
-    branch: ci-deploy
+    branch: master
     commands:
       - npm run upload
