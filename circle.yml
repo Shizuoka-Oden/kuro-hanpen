@@ -2,6 +2,11 @@ machine:
   node:
     version: 4.2.2
 
+test:
+  post:
+    - mkdir -p $CIRCLE_TEST_REPORTS/junit/
+    - mv reports/TESTS-PhantomJS*.xml $CIRCLE_TEST_REPORTS/junit/
+
 deployment:
   deploy:
     branch: master
