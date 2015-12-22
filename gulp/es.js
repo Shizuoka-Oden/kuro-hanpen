@@ -29,7 +29,7 @@ var awsConf = {};
 try {
   awsConf = JSON.parse(fs.readFileSync('./aws.json'));
 } catch(e) {
-  if(!e.code === 'ENOENT') throw e;
+  if(e.code !== 'ENOENT') throw e;
   awsConf.es = {
     endpoint:  process.env.AWS_ES_ENDPOINT,
     index: process.env.AWS_ES_INDEX,
