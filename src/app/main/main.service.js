@@ -27,6 +27,8 @@
       // getMarkers: function(type){
       getMarkers: function(){
         var deferred = $q.defer();
+
+        // ホントはサーバに問い合わせて type でフィルタしてもらう
         deferred.resolve([{
           _id: "1",
           type: "幼稚園",
