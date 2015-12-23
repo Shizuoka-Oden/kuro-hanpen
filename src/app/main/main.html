@@ -1,5 +1,11 @@
 <div class="container-fluid">
   <div class="row">
-    <ui-gmap-google-map center='main.map.center' zoom='main.map.zoom' options="main.options"></ui-gmap-google-map>
+    <ui-gmap-google-map center='main.map.center' zoom='main.zoom' options="main.options">
+      <ui-gmap-markers
+          models="main.markers"
+          coords="'self'"
+          icon="'icon'">
+      </ui-gmap-markers>
+    </ui-gmap-google-map>
   </div>
 </div>
