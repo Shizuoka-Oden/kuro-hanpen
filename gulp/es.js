@@ -105,6 +105,7 @@ function bulk(filePath) {
 
   for(var i = 0 ; i < data.length ; i++ ) {
     data[i].type = type;
+    data[i].preset = true;
     result += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "location"} }\n';
     result += JSON.stringify(data[i]) + '\n';
   };

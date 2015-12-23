@@ -19,6 +19,9 @@
         "description": {
           "type": "string",
           "index": "not_analyzed"
+        },
+        "preset": {
+            "type": "boolean"
         }
       }
     }
