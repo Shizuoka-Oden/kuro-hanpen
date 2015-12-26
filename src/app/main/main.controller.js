@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation) {
+  function MainController(GeoLocation, $mdSidenav) {
     var vm = this;
     vm.zoom = 14;
     // 航空写真との切り替えやストリートビューの切り替えは無効
@@ -44,6 +44,10 @@
         };
       });
     });
+
+    vm.toggleLeft = function() {
+      $mdSidenav('left').toggle();
+    };
   }
 
   function getIcon(type) {

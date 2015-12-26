@@ -6,7 +6,7 @@
     .config(config);
 
   /** @ngInject */
-  function config($logProvider, toastrConfig, uiGmapGoogleMapApiProvider) {
+  function config($logProvider, toastrConfig, uiGmapGoogleMapApiProvider, $mdThemingProvider) {
     // Enable log
     $logProvider.debugEnabled(true);
 
@@ -18,7 +18,10 @@
     toastrConfig.progressBar = true;
 
     // Set Angular Google Maps Settings
-    uiGmapGoogleMapApiProvider.v = '3.20'
-    uiGmapGoogleMapApiProvider.libraries = 'weather,geometry,visualization'
+    uiGmapGoogleMapApiProvider.v = '3.20';
+    uiGmapGoogleMapApiProvider.libraries = 'weather,geometry,visualization';
+
+    // Set Angular Material
+    $mdThemingProvider.theme('default').primaryPalette('blue-grey');
   }
 })();
