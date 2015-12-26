@@ -10,7 +10,7 @@
     return {
       getCurrent: function(){
         var deferred = $q.defer();
-        if(!$window.navigator) {
+        if(!$window.navigator.geolocation) {
           deferred.reject(new Error('Geolocation is not supported'));
         } else {
           $window.navigator.geolocation.getCurrentPosition(function(position) {
