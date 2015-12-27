@@ -18,7 +18,15 @@
       vm = _$controller_('MainController', {
         GeoLocation: _GeoLocation_
       });
+
+      spyOn(vm, 'toggleSideMenu');
+
+      vm.toggleSideMenu();
     }));
+
+    it("tracks that toggleSideMenu() was called", function() {
+      expect(vm.toggleSideMenu).toHaveBeenCalled();
+    });
 
     it('should have a map object', function() {
       expect(vm.map).toEqual(jasmine.any(Object));
