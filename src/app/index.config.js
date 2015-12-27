@@ -18,8 +18,11 @@
     toastrConfig.progressBar = true;
 
     // Set Angular Google Maps Settings
-    uiGmapGoogleMapApiProvider.v = '3.20';
-    uiGmapGoogleMapApiProvider.libraries = 'weather,geometry,visualization';
+    uiGmapGoogleMapApiProvider.configure({
+      v: '3.20',
+      libraries: 'weather,geometry,visualization',
+      language: 'ja'
+    });
 
     // Set Angular Material
     $mdThemingProvider.theme('default').primaryPalette('blue-grey');
