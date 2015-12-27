@@ -10,17 +10,6 @@
     var vm = this;
     vm.filters = FilterLocation.getFilters();
 
-    // 地図上に表示するマーカーのフィルタ
-    vm.filterByCategory = function(marker) {
-      for(var i = 0 ; i < vm.filters.length ; i ++) {
-        var filter = vm.filters[i];
-        if(filter.name === marker.locationType) {
-          return filter.checked;
-        }
-      }
-      return false;
-    };
-
     vm.zoom = 14;
     // 航空写真との切り替えやストリートビューの切り替えは無効
     vm.options = {
@@ -46,19 +35,26 @@
       };
     });
 
-    GeoLocation.getMarkers().then(function(markers) {
-      vm.markers = markers.map(function(marker) {
-        var icon = getIcon(marker.type);
-        return {
-          id: marker._id,
-          locationType: marker.type,
-          icon: icon,
-          coords: {
-            latitude: marker.location.lat,
-            longitude: marker.location.lon
-          }
-        };
-      });
+    GeoLocation.getMarkers('保育園').then(function(markers) {
+      vm.nurseySchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('幼稚園').then(function(markers) {
+      vm.kindergartenMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('小学校').then(function(markers) {
+      vm.primarySchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('中学校').then(function(markers) {
+      vm.juniorHighSchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('高校').then(function(markers) {
+      vm.highSchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('公園').then(function(markers) {
+      vm.parkMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('ヒヤリハット').then(function(markers) {
+      vm.incidentMarkers = convertMarkersResponse(markers);
     });
 
     vm.toggleSideMenu = function() {
@@ -66,6 +62,16 @@
     };
   }
 
+  function convertMarkersResponse(markers) {
+    return markers.map(function(marker) {
+      return {
+        id: marker._id,
+        icon: getIcon(marker.type),
+        latitude: marker.location.lat,
+        longitude: marker.location.lon
+      };
+    });
+  }
   // TODO: どっか追い出す
   function getIcon(type) {
     switch(type) {

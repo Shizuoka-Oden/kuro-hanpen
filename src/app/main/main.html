@@ -40,10 +40,53 @@
 
     <ui-gmap-google-map center='main.map.center' zoom='main.zoom' options="main.options">
 
-      <ui-gmap-marker ng-repeat="marker in main.markers | filter : main.filterByCategory"
-          idKey="marker.id"
-          coords="marker.coords"
-          options="{icon: marker.icon}">
+      <ui-gmap-markers
+          models="main.nurseySchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[0].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.kindergartenMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[1].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.primarySchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[2].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.juniorHighSchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[3].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.highSchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[4].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.parkMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[5].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.incidentMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[6].checked">
       </ui-gmap-markers>
 
     </ui-gmap-google-map>
