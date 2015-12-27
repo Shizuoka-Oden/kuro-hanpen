@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation, FilterLocation, $mdSidenav) {
+  function MainController(GeoLocation, FilterLocation, $mdSidenav, $mdMedia, $mdDialog, $document) {
     var vm = this;
     vm.filters = FilterLocation.getFilters();
 
@@ -51,6 +51,18 @@
     vm.toggleLeft = function() {
       $mdSidenav('left').toggle();
     };
+    vm.showDialog = function(ev) {
+       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+       $mdDialog.show({
+         controller: 'RegistController',
+         controllerAs: 'regist',
+         templateUrl: 'app/regist/regist.tmpl.html',
+         parent: angular.element($document.body),
+         targetEvent: ev,
+         clickOutsideToClose:true,
+         fullscreen: useFullScreen
+       });
+     };
   }
 
   // TODO: どっか追い出す
