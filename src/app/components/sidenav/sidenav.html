@@ -14,7 +14,7 @@
   <md-content layout-padding>
     <md-list>
       <md-list-item ng-repeat="type in main.filters">
-        <img class="icon" src="assets/images/{{type.img}}">
+        <img class="icon" ng-src="assets/images/{{type.img}}">
         <p> {{ type.name }} </p>
         <md-checkbox class="md-secondary" ng-model="type.checked"></md-checkbox>
       </md-list-item>
