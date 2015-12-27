@@ -24,12 +24,11 @@
         return deferred.promise;
       },
 
-      // getMarkers: function(type){
       getMarkers: function(){
         var deferred = $q.defer();
 
         // ホントはサーバに問い合わせて type でフィルタしてもらう
-        deferred.resolve([{
+        var markers = [{
           _id: "1",
           type: "幼稚園",
           address: "住所",
@@ -106,7 +105,9 @@
           title: "詳細情報画面に表示するタイトル",
           description: "詳細情報画面に表示する説明文",
           preset: true
-        }]);
+        }];
+
+        deferred.resolve(markers);
         return deferred.promise;
       }
     };

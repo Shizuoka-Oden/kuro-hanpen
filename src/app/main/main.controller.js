@@ -10,6 +10,17 @@
     var vm = this;
     vm.filters = FilterLocation.getFilters();
 
+    // 地図上に表示するマーカーのフィルタ
+    vm.filterByCategory = function(marker) {
+      for(var i = 0 ; i < vm.filters.length ; i ++) {
+        var filter = vm.filters[i];
+        if(filter.name === marker.locationType) {
+          return filter.checked;
+        }
+      }
+      return false;
+    };
+
     vm.zoom = 14;
     // 航空写真との切り替えやストリートビューの切り替えは無効
     vm.options = {
@@ -35,20 +46,22 @@
       };
     });
 
-    // TODO: フィルタリングのためのtype情報渡す
     GeoLocation.getMarkers().then(function(markers) {
       vm.markers = markers.map(function(marker) {
         var icon = getIcon(marker.type);
         return {
           id: marker._id,
+          locationType: marker.type,
           icon: icon,
-          latitude: marker.location.lat,
-          longitude: marker.location.lon
+          coords: {
+            latitude: marker.location.lat,
+            longitude: marker.location.lon
+          }
         };
       });
     });
 
-    vm.toggleLeft = function() {
+    vm.toggleSideMenu = function() {
       $mdSidenav('left').toggle();
     };
   }
