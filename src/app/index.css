@@ -17,6 +17,10 @@
 }
 */
 
+.icon {
+  width: 2em;
+}
+
 .angular-google-map-container {
   height: 100vh;
 }

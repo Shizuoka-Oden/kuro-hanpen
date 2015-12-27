@@ -6,8 +6,10 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation) {
+  function MainController(GeoLocation, FilterLocation, $mdSidenav) {
     var vm = this;
+    vm.filters = FilterLocation.getFilters();
+
     vm.zoom = 14;
     // 航空写真との切り替えやストリートビューの切り替えは無効
     vm.options = {
@@ -33,6 +35,7 @@
       };
     });
 
+    // TODO: フィルタリングのためのtype情報渡す
     GeoLocation.getMarkers().then(function(markers) {
       vm.markers = markers.map(function(marker) {
         var icon = getIcon(marker.type);
@@ -44,8 +47,13 @@
         };
       });
     });
+
+    vm.toggleLeft = function() {
+      $mdSidenav('left').toggle();
+    };
   }
 
+  // TODO: どっか追い出す
   function getIcon(type) {
     switch(type) {
     case '幼稚園':
