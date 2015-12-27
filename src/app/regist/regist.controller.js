@@ -5,7 +5,7 @@ angular
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController() {
+function RegistController($mdDialog) {
   var vm = this;
   vm.categories = [
     "交通事故多発",
@@ -13,4 +13,11 @@ function RegistController() {
     "朝夕通勤・通学",
     "その他"
   ];
+
+  vm.cancel = function() {
+    $mdDialog.cancel();
+  };
+  vm.regist = function() {
+    $mdDialog.hide();
+  };
 }

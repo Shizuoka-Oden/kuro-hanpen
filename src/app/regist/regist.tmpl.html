@@ -22,14 +22,14 @@
         <br>
         <md-input-container>
           <label>詳細</label>
-          <textarea name="kanso" rows="4" style="width:400px"></textarea>
+          <textarea name="kanso" rows="4" style="width:400px; height:60px"></textarea>
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button class="md-raised" ng-click="answer('not useful')">キャンセル</md-button>
-      <md-button class="md-raised md-primary" ng-click="answer('useful')" style="margin-right:20px;">登録</md-button>
+      <md-button class="md-raised" ng-click="regist.cancel()">キャンセル</md-button>
+      <md-button class="md-raised md-primary" ng-click="regist.regist()" style="margin-right:0px;">登録</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
