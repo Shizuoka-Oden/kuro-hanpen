@@ -3,7 +3,7 @@
   <md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
     <md-toolbar class="md-primary">
       <div class="md-toolbar-tools">
-        <md-button ng-click="main.toggleLeft()"
+        <md-button ng-click="main.toggleSideMenu()"
                    class="md-primary md-icon-button"
                    aria-label="Close" hide-gt-md>
           <md-icon md-svg-icon="assets/images/ic_chevron_left.svg"></md-icon>
@@ -16,7 +16,7 @@
     <md-content layout-padding>
       <md-list>
         <md-list-item ng-repeat="type in main.filters">
-          <img class="icon" src="assets/images/{{type.img}}">
+          <img class="icon" ng-src="assets/images/{{type.img}}">
           <p> {{ type.name }} </p>
           <md-checkbox class="md-secondary" ng-model="type.checked"></md-checkbox>
         </md-list-item>
@@ -27,7 +27,7 @@
   <md-content flex layout-fill>
     <md-toolbar class="top-toolbar">
       <div class="md-toolbar-tools">
-        <md-button ng-click="main.toggleLeft()"
+        <md-button ng-click="main.toggleSideMenu()"
                    class="md-primary md-icon-button"
                    aria-label="Settings" hide-gt-md>
           <md-icon md-svg-icon="assets/images/ic_menu.svg"></md-icon>
@@ -39,11 +39,56 @@
     </md-toolbar>
 
     <ui-gmap-google-map center='main.map.center' zoom='main.zoom' options="main.options">
+
       <ui-gmap-markers
-          models="main.markers"
+          models="main.nurseySchoolMarkers"
           coords="'self'"
-          icon="'icon'">
+          icon="'icon'"
+          ng-if="main.filters[0].checked">
       </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.kindergartenMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[1].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.primarySchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[2].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.juniorHighSchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[3].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.highSchoolMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[4].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.parkMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[5].checked">
+      </ui-gmap-markers>
+
+      <ui-gmap-markers
+          models="main.incidentMarkers"
+          coords="'self'"
+          icon="'icon'"
+          ng-if="main.filters[6].checked">
+      </ui-gmap-markers>
+
     </ui-gmap-google-map>
   </md-content>
 

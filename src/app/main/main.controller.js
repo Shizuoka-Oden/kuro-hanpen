@@ -35,24 +35,43 @@
       };
     });
 
-    // TODO: フィルタリングのためのtype情報渡す
-    GeoLocation.getMarkers().then(function(markers) {
-      vm.markers = markers.map(function(marker) {
-        var icon = getIcon(marker.type);
-        return {
-          id: marker._id,
-          icon: icon,
-          latitude: marker.location.lat,
-          longitude: marker.location.lon
-        };
-      });
+    GeoLocation.getMarkers('保育園').then(function(markers) {
+      vm.nurseySchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('幼稚園').then(function(markers) {
+      vm.kindergartenMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('小学校').then(function(markers) {
+      vm.primarySchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('中学校').then(function(markers) {
+      vm.juniorHighSchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('高校').then(function(markers) {
+      vm.highSchoolMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('公園').then(function(markers) {
+      vm.parkMarkers = convertMarkersResponse(markers);
+    });
+    GeoLocation.getMarkers('ヒヤリハット').then(function(markers) {
+      vm.incidentMarkers = convertMarkersResponse(markers);
     });
 
-    vm.toggleLeft = function() {
+    vm.toggleSideMenu = function() {
       $mdSidenav('left').toggle();
     };
   }
 
+  function convertMarkersResponse(markers) {
+    return markers.map(function(marker) {
+      return {
+        id: marker._id,
+        icon: getIcon(marker.type),
+        latitude: marker.location.lat,
+        longitude: marker.location.lon
+      };
+    });
+  }
   // TODO: どっか追い出す
   function getIcon(type) {
     switch(type) {
