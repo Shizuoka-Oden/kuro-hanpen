@@ -6,9 +6,8 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation, FilterLocation, $mdSidenav) {
+  function MainController(GeoLocation, $mdSidenav) {
     var vm = this;
-    vm.filters = FilterLocation.getFilters();
 
     vm.zoom = 14;
     // 航空写真との切り替えやストリートビューの切り替えは無効
@@ -35,26 +34,49 @@
       };
     });
 
-    GeoLocation.getMarkers('保育園').then(function(markers) {
-      vm.nurseySchoolMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('幼稚園').then(function(markers) {
-      vm.kindergartenMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('小学校').then(function(markers) {
-      vm.primarySchoolMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('中学校').then(function(markers) {
-      vm.juniorHighSchoolMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('高校').then(function(markers) {
-      vm.highSchoolMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('公園').then(function(markers) {
-      vm.parkMarkers = convertMarkersResponse(markers);
-    });
-    GeoLocation.getMarkers('ヒヤリハット').then(function(markers) {
-      vm.incidentMarkers = convertMarkersResponse(markers);
+    var categories = [{
+      name: '保育園',
+      icon: 'assets/images/nursery-school.png',
+      display: true,
+      markers: []
+    }, {
+      name: '幼稚園',
+      icon: 'assets/images/kindergarten.png',
+      display: true,
+      markers: []
+    }, {
+      name: '小学校',
+      icon: 'assets/images/primary-school.png',
+      display: true,
+      markers: []
+    }, {
+      name: '中学校',
+      icon: 'assets/images/junior-high-school.png',
+      display: true,
+      markers: []
+    }, {
+      name: '高校',
+      icon: 'assets/images/high-school.png',
+      display: true,
+      markers: []
+    }, {
+      name: '公園',
+      icon: 'assets/images/park.png',
+      display: true,
+      markers: []
+    }, {
+      name: 'ヒヤリハット',
+      icon: 'assets/images/incident.png',
+      display: true,
+      markers: []
+    }];
+
+    vm.categories = categories;
+    categories.forEach(function(category) {
+      GeoLocation.getMarkers(category.name)
+        .then(function(markers) {
+          category.markers = convertMarkersResponse(markers, category);
+      });
     });
 
     vm.toggleSideMenu = function() {
@@ -62,34 +84,15 @@
     };
   }
 
-  function convertMarkersResponse(markers) {
+  function convertMarkersResponse(markers, category) {
     return markers.map(function(marker) {
       return {
         id: marker._id,
-        icon: getIcon(marker.type),
+        icon: category.icon,
         latitude: marker.location.lat,
         longitude: marker.location.lon
       };
     });
   }
-  // TODO: どっか追い出す
-  function getIcon(type) {
-    switch(type) {
-    case '幼稚園':
-      return 'assets/images/kindergarten.png';
-    case '保育園':
-      return 'assets/images/nursery-school.png';
-    case '小学校':
-      return 'assets/images/primary-school.png';
-    case '中学校':
-      return 'assets/images/junior-high-school.png';
-    case '高校':
-      return 'assets/images/high-school.png';
-    case '公園':
-      return 'assets/images/park.png';
-    case 'ヒヤリハット':
-      return 'assets/images/incident.png';
-    }
-    return '';
-  }
+
 })();
