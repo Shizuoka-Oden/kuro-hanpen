@@ -1,0 +1,23 @@
+<md-sidenav class="md-sidenav-left md-whiteframe-z2" md-component-id="left" md-is-locked-open="$mdMedia('gt-md')">
+  <md-toolbar class="md-primary">
+    <div class="md-toolbar-tools">
+      <md-button ng-click="sidenav.toggleSideMenu()"
+                 class="md-primary md-icon-button"
+                 aria-label="Close" hide-gt-md>
+        <md-icon md-svg-icon="assets/images/ic_chevron_left.svg"></md-icon>
+      </md-button>
+      <h1>
+        <span>地図に表示</span>
+      </h1>
+    </div>
+  </md-toolbar>
+  <md-content layout-padding>
+    <md-list>
+      <md-list-item ng-repeat="type in main.filters">
+        <img class="icon" src="assets/images/{{type.img}}">
+        <p> {{ type.name }} </p>
+        <md-checkbox class="md-secondary" ng-model="type.checked"></md-checkbox>
+      </md-list-item>
+    </md-list>
+  </md-content>
+</md-sidenav>
