@@ -6,6 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
+
   function MainController($mdSidenav, $mdMedia, $mdDialog, $document) {
     var vm = this;
 
@@ -67,5 +68,17 @@
         }
       });
     };
+    vm.showDialog = function(ev) {
+       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+       $mdDialog.show({
+         controller: 'RegistController',
+         controllerAs: 'regist',
+         templateUrl: 'app/regist/regist.tmpl.html',
+         parent: angular.element($document.body),
+         targetEvent: ev,
+         clickOutsideToClose:true,
+         fullscreen: useFullScreen
+       });
+     };
   }
 })();

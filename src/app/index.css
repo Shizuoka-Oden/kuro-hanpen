@@ -24,3 +24,13 @@
 .angular-google-map-container {
   height: 100vh;
 }
+
+.addbutton {
+  position: absolute;
+  right: 0px;
+  bottom: 160px;
+}
+.addbutton span {
+  line-height: 30px;
+  font-size: 40px;
+}
