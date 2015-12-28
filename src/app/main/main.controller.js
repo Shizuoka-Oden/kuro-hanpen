@@ -68,7 +68,8 @@
         }
       });
     };
-    vm.showDialog = function(ev) {
+
+    vm.showRegistDialog = function(ev) {
        var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
        $mdDialog.show({
          controller: 'RegistController',
