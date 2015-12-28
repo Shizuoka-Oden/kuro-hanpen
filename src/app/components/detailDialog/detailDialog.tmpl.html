@@ -1,0 +1,25 @@
+<md-dialog ng-cloak>
+  <form>
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <img class="icon" ng-src="{{detailDialog.icon}}">
+        <h2>({{ detailDialog.type }}) {{ detailDialog.title }}</h2>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+
+        <h4>{{ detailDialog.address }}</h4>
+        <h4>{{ detailDialog.description }}</h4>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button style="margin-right:20px;" ng-click="detailDialog.hide()">
+        閉じる
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
