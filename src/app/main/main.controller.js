@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav) {
+  function MainController($mdSidenav, $mdMedia, $mdDialog, $document) {
     var vm = this;
 
     vm.toggleSideMenu = function() {
@@ -51,5 +51,21 @@
     }];
 
     vm.categories = categories;
+
+    vm.showDetailDialog = function(ev) {
+      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+      $mdDialog.show({
+        controller: 'DetailDialogController',
+        controllerAs: 'detailDialog',
+        templateUrl: 'app/components/detailDialog/detailDialog.tmpl.html',
+        parent: angular.element($document.body),
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: useFullScreen,
+        locals: {
+          location: ev.model
+        }
+      });
+    };
   }
 })();

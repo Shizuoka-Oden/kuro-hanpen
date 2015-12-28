@@ -44,9 +44,12 @@
         id: marker._id,
         icon: category.icon,
         latitude: marker.location.lat,
-        longitude: marker.location.lon
+        longitude: marker.location.lon,
+        type: marker.type,
+        address: marker.address,
+        title: marker.title,
+        description: marker.description
       };
     });
   }
-
 })();
