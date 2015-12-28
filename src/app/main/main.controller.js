@@ -6,33 +6,12 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation, $mdSidenav) {
+  function MainController($mdSidenav) {
     var vm = this;
 
-    vm.zoom = 14;
-    // 航空写真との切り替えやストリートビューの切り替えは無効
-    vm.options = {
-      mapTypeControl: false,
-      streetViewControl: false,
-      zoomControl: false
+    vm.toggleSideMenu = function() {
+      $mdSidenav('left').toggle();
     };
-
-    vm.map = {};
-
-    GeoLocation.getCurrent().then(function(location) {
-      vm.map.center = {
-        latitude: location.lat,
-        longitude: location.lon
-      };
-    }, function() {
-      // 現在地を取得できない場合は静岡駅を中心地に設定
-      vm.map = {
-        center: {
-          latitude: 34.9714699,
-          longitude: 138.3869833
-        }
-      };
-    });
 
     var categories = [{
       name: '保育園',
@@ -72,27 +51,5 @@
     }];
 
     vm.categories = categories;
-    categories.forEach(function(category) {
-      GeoLocation.getMarkers(category.name)
-        .then(function(markers) {
-          category.markers = convertMarkersResponse(markers, category);
-      });
-    });
-
-    vm.toggleSideMenu = function() {
-      $mdSidenav('left').toggle();
-    };
   }
-
-  function convertMarkersResponse(markers, category) {
-    return markers.map(function(marker) {
-      return {
-        id: marker._id,
-        icon: category.icon,
-        latitude: marker.location.lat,
-        longitude: marker.location.lon
-      };
-    });
-  }
-
 })();

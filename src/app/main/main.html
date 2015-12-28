@@ -16,16 +16,8 @@
       </div>
     </md-toolbar>
 
-    <ui-gmap-google-map center='main.map.center' zoom='main.zoom' options="main.options">
+    <div ui-view="gmap"></div>
 
-      <ui-gmap-markers ng-repeat="category in main.categories"
-          models="category.markers"
-          coords="'self'"
-          icon="'icon'"
-          ng-if="category.display">
-      </ui-gmap-markers>
-
-    </ui-gmap-google-map>
   </md-content>
 
 </section>

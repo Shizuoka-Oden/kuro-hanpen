@@ -20,6 +20,11 @@
             templateUrl: 'app/components/sidenav/sidenav.html',
             controller: 'SidenavController',
             controllerAs: 'sidenav'
+          },
+          'gmap@home': {
+            templateUrl: 'app/components/gmap/gmap.html',
+            controller: 'GMapController',
+            controllerAs: 'gmap'
           }
         }
       });
