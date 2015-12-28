@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController(GeoLocation, FilterLocation, $mdSidenav) {
+  function MainController(GeoLocation, FilterLocation, $mdSidenav, $mdMedia, $mdDialog, $document) {
     var vm = this;
     vm.filters = FilterLocation.getFilters();
 
@@ -60,6 +60,23 @@
     vm.toggleSideMenu = function() {
       $mdSidenav('left').toggle();
     };
+
+    vm.showDetailDialog = function(ev) {
+       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+       console.log(ev);
+       $mdDialog.show({
+          controller: 'DetailDialogController',
+          controllerAs: 'detailDialog',
+          templateUrl: 'app/components/detailDialog/detailDialog.tmpl.html',
+          parent: angular.element($document.body),
+          targetEvent: ev,
+          clickOutsideToClose: true,
+          fullscreen: useFullScreen,
+          locals: {
+            location: ev.model
+          }
+       });
+     };
   }
 
   function convertMarkersResponse(markers) {
@@ -68,7 +85,11 @@
         id: marker._id,
         icon: getIcon(marker.type),
         latitude: marker.location.lat,
-        longitude: marker.location.lon
+        longitude: marker.location.lon,
+        type: marker.type,
+        address: marker.address,
+        title: marker.title,
+        description: marker.description
       };
     });
   }

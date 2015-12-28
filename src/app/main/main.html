@@ -22,49 +22,56 @@
           models="main.nurseySchoolMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[0].checked">
+          ng-if="main.filters[0].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.kindergartenMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[1].checked">
+          ng-if="main.filters[1].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.primarySchoolMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[2].checked">
+          ng-if="main.filters[2].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.juniorHighSchoolMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[3].checked">
+          ng-if="main.filters[3].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.highSchoolMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[4].checked">
+          ng-if="main.filters[4].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.parkMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[5].checked">
+          ng-if="main.filters[5].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
       <ui-gmap-markers
           models="main.incidentMarkers"
           coords="'self'"
           icon="'icon'"
-          ng-if="main.filters[6].checked">
+          ng-if="main.filters[6].checked"
+          click="main.showDetailDialog">
       </ui-gmap-markers>
 
     </ui-gmap-google-map>
