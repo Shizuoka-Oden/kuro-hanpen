@@ -10,19 +10,23 @@
     var vm = this;
     vm.data = GmapData;
     GeoLocation.getCurrent().then(function(location) {
-      var latLon= {
+      vm.data.center = {
         latitude: location.lat,
         longitude: location.lon
       };
-      vm.data.center = latLon
-      vm.data.current = latLon;
+      vm.data.current = {
+        latitude: location.lat,
+        longitude: location.lon
+      };
     }, function() {
-      var latLon = {
+      vm.data.center = {
         latitude: 34.9714699,
         longitude: 138.3869833
       };
-      vm.data.center = latLon
-      vm.data.current = latLon;
+      vm.data.current = {
+        latitude: 34.9714699,
+        longitude: 138.3869833
+      };
     });
 
     Categories.forEach(function(category) {
