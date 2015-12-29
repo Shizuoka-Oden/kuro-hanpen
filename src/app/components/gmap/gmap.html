@@ -1,4 +1,4 @@
-<ui-gmap-google-map center='gmap.center' zoom='gmap.zoom' options="gmap.options">
+<ui-gmap-google-map center='gmap.data.center' zoom='gmap.data.zoom' options="gmap.data.options" control="gmap.data.control" ng-cloak>
 
   <ui-gmap-markers ng-repeat="category in main.categories"
                    models="category.markers"
