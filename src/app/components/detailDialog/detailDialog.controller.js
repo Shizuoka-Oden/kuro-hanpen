@@ -6,18 +6,46 @@
     .controller('DetailDialogController', DetailDialogController);
 
   /** @ngInject */
-  function DetailDialogController($mdDialog, GeoLocation, marker, Categories) {
+  function DetailDialogController($mdDialog, GeoLocation, marker, Categories, $scope) {
     var vm = this;
     vm.id = marker.model.id;
     vm.icon =  marker.model.icon;
-    vm.latitude = marker.model.latitude;
-    vm.longitude = marker.model.longitude;
     vm.type = marker.model.type;
     vm.address = marker.model.address;
     vm.title = marker.model.title;
     vm.description = marker.model.description;
     vm.preset = marker.model.preset;
     vm.isConfirm = false;
+
+    // 埋め込みストリートビュー
+    var latLng = {
+      lat : marker.model.latitude,
+      lng : marker.model.longitude
+    }
+    var sv = new google.maps.StreetViewService();
+    sv.getPanorama({location: latLng, radius: 50}, processSVData);
+
+    function processSVData(data, status) {
+      var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
+        addressControl: false,
+        zoomControl: false,
+        panControl: false,
+      });
+      if (status === google.maps.StreetViewStatus.OK) {
+        panorama.setPano(data.location.pano);
+        panorama.setPov({
+          heading: 270,
+          pitch: 0
+        });
+        panorama.setVisible(true);
+      } else {
+        console.error('Street View data not found for this location.');
+      }
+    }
+
+    if (vm.type === 'ヒヤリハット') {
+      vm.type = 'ヒヤリ';
+    }
 
     vm.hide = function() {
       $mdDialog.hide();
