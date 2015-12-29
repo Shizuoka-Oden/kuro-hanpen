@@ -6,7 +6,7 @@
     .controller('DetailDialogController', DetailDialogController);
 
   /** @ngInject */
-  function DetailDialogController($mdDialog, GeoLocation, marker, Categories, $scope) {
+  function DetailDialogController($mdDialog, $document, GeoLocation, marker, Categories, GmapData) {
     var vm = this;
     vm.id = marker.model.id;
     vm.icon =  marker.model.icon;
@@ -26,10 +26,10 @@
     sv.getPanorama({location: latLng, radius: 50}, processSVData);
 
     function processSVData(data, status) {
-      var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
+      var panorama = new google.maps.StreetViewPanorama($document[0].getElementById('pano'), {
         addressControl: false,
         zoomControl: false,
-        panControl: false,
+        panControl: false
       });
       if (status === google.maps.StreetViewStatus.OK) {
         panorama.setPano(data.location.pano);
@@ -39,7 +39,8 @@
         });
         panorama.setVisible(true);
       } else {
-        console.error('Street View data not found for this location.');
+        panorama.setVisible(false);
+        $document[0].getElementById('pano').style.display='none';
       }
     }
 
@@ -74,6 +75,27 @@
         marker.setMap(null);
         $mdDialog.hide();
       });
+    };
+
+    vm.keiro = function () {
+      if (!GmapData.directionsDisplay) {
+        GmapData.directionsDisplay = new google.maps.DirectionsRenderer();
+      }
+      GmapData.directionsDisplay.setMap(GmapData.control.getGMap());
+
+      var directionsService = new google.maps.DirectionsService();
+      var start = GmapData.current.latitude.toString() + "," + GmapData.current.longitude.toString();
+      var request = {
+        origin: start,
+        destination: latLng,
+        travelMode: google.maps.TravelMode.WALKING
+      };
+      directionsService.route(request, function(response, status) {
+        if (status == google.maps.DirectionsStatus.OK) {
+          GmapData.directionsDisplay.setDirections(response);
+        }
+      });
+      $mdDialog.hide();
     };
   }
 })();
