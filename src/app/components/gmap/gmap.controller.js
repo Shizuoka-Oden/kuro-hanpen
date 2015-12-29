@@ -6,25 +6,24 @@
     .controller('GMapController', GMapController);
 
   /** @ngInject */
-  function GMapController(GeoLocation, Categories) {
+  function GMapController(GeoLocation, Categories, GmapData) {
     var vm = this;
-
-    vm.zoom = 14;
-    // 航空写真との切り替えやストリートビューの切り替えは無効
-    vm.options = {
-      mapTypeControl: false,
-      streetViewControl: false,
-      zoomControl: false
-    };
-
+    vm.data = GmapData;
     GeoLocation.getCurrent().then(function(location) {
-      vm.center = {
+      vm.data.center = {
+        latitude: location.lat,
+        longitude: location.lon
+      };
+      vm.data.current = {
         latitude: location.lat,
         longitude: location.lon
       };
     }, function() {
-      // 現在地を取得できない場合は静岡駅を中心地に設定
-      vm.center = {
+      vm.data.center = {
+        latitude: 34.9714699,
+        longitude: 138.3869833
+      };
+      vm.data.current = {
         latitude: 34.9714699,
         longitude: 138.3869833
       };

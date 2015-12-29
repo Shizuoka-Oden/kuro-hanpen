@@ -51,11 +51,11 @@
 
     it('should have a center object', function() {
       $scope.$apply();
-      expect(vm.center).toEqual(jasmine.any(Object));
+      expect(vm.data.center).toEqual(jasmine.any(Object));
     });
 
     it('should have map options', function() {
-      expect(vm.options).toEqual(jasmine.any(Object));
+      expect(vm.data.options).toEqual(jasmine.any(Object));
     });
   });
 })();

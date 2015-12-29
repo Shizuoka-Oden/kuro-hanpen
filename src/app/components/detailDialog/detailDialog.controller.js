@@ -6,7 +6,7 @@
     .controller('DetailDialogController', DetailDialogController);
 
   /** @ngInject */
-  function DetailDialogController($mdDialog, GeoLocation, marker, Categories, $scope) {
+  function DetailDialogController($mdDialog, GeoLocation, marker, Gmap) {
     var vm = this;
     vm.id = marker.model.id;
     vm.icon =  marker.model.icon;
@@ -16,36 +16,17 @@
     vm.description = marker.model.description;
     vm.preset = marker.model.preset;
     vm.isConfirm = false;
-
-    // 埋め込みストリートビュー
-    var latLng = {
-      lat : marker.model.latitude,
-      lng : marker.model.longitude
-    }
-    var sv = new google.maps.StreetViewService();
-    sv.getPanorama({location: latLng, radius: 50}, processSVData);
-
-    function processSVData(data, status) {
-      var panorama = new google.maps.StreetViewPanorama(document.getElementById('pano'), {
-        addressControl: false,
-        zoomControl: false,
-        panControl: false,
-      });
-      if (status === google.maps.StreetViewStatus.OK) {
-        panorama.setPano(data.location.pano);
-        panorama.setPov({
-          heading: 270,
-          pitch: 0
-        });
-        panorama.setVisible(true);
-      } else {
-        console.error('Street View data not found for this location.');
-      }
-    }
-
+    // 表示名を短くする
     if (vm.type === 'ヒヤリハット') {
       vm.type = 'ヒヤリ';
     }
+
+    // 埋め込みストリートビュー表示
+    var latLng = {
+      lat : marker.model.latitude,
+      lng : marker.model.longitude
+    };
+    Gmap.setStreetView(latLng, 'pano');
 
     vm.hide = function() {
       $mdDialog.hide();
@@ -60,20 +41,17 @@
     };
 
     vm.delete = function() {
-      // ヒヤリハットカテゴリのマーカーから対象データを削除
-      var markers = Categories[Categories.length-1].markers;
-      for (var i = 0; i <= markers.length; i++) {
-        if (markers[i].id === vm.id) {
-          markers.splice( i , 1 );
-          break;
-        }
-      }
-
+      Gmap.deleteLocationFromMarkers(vm.id);
       GeoLocation.delete(vm.id)
       .finally(function () {
         marker.setMap(null);
         $mdDialog.hide();
       });
+    };
+
+    vm.route = function () {
+      Gmap.setRoute(latLng);
+      $mdDialog.hide();
     };
   }
 })();

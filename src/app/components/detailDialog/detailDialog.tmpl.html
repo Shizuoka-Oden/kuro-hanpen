@@ -22,9 +22,12 @@
       </div>
     </md-dialog-content>
 
-    <md-dialog-actions layout="row" ng-if="detailDialog.type === 'ヒヤリ'">
+    <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button class="md-warn" style="margin-right:20px;" ng-click="detailDialog.deleteConfirm()" ng-if="!detailDialog.preset && !detailDialog.isConfirm">
+      <md-button style="margin-right:20px;" ng-click="detailDialog.route()" ng-if="detailDialog.type !== 'ヒヤリ'">
+        現在地からここまでの経路を表示
+      </md-button>
+      <md-button class="md-warn" style="margin-right:20px;" ng-click="detailDialog.deleteConfirm()" ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm">
         安全になったので削除する
       </md-button>
       <md-button class="md-warn md-raised" style="margin-right:20px;" ng-click="detailDialog.delete()" ng-if="detailDialog.isConfirm">
