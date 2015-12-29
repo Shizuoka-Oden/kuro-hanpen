@@ -6,8 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($document, GmapData, Categories) {
-    /*global google*/
+  function Gmap($document, uiGmapGoogleMapApi, GmapData, Categories) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -22,47 +21,54 @@
 
       // 指定したドキュメントIDのエレメントにストリートビューを埋め込む
       setStreetView: function(latLng, documentId) {
-        var sv = new google.maps.StreetViewService();
-        sv.getPanorama({location: latLng, radius: 50}, processSVData);
+        uiGmapGoogleMapApi.then(function(maps) {
+          var sv = new maps.StreetViewService();
+          sv.getPanorama({
+            location: latLng,
+            radius: 50
+          }, processSVData);
 
-        function processSVData(data, status) {
-          var panorama = new google.maps.StreetViewPanorama($document[0].getElementById(documentId), {
-            addressControl: false,
-            zoomControl: false,
-            panControl: false
-          });
-          if (status === google.maps.StreetViewStatus.OK) {
-            panorama.setPano(data.location.pano);
-            panorama.setPov({
-              heading: 270,
-              pitch: 0
+          function processSVData(data, status) {
+            var panorama = new maps.StreetViewPanorama($document[0].getElementById(documentId), {
+              addressControl: false,
+              zoomControl: false,
+              panControl: false
             });
-            panorama.setVisible(true);
-          } else {
-            panorama.setVisible(false);
-            $document[0].getElementById(documentId).style.display='none';
+            if (status === maps.StreetViewStatus.OK) {
+              panorama.setPano(data.location.pano);
+              panorama.setPov({
+                heading: 270,
+                pitch: 0
+              });
+              panorama.setVisible(true);
+            } else {
+              panorama.setVisible(false);
+              $document[0].getElementById(documentId).style.display='none';
+            }
           }
-        }
+        });
       },
 
       // ルート表示をする
       setRoute: function(latLng) {
-        if (!GmapData.directionsDisplay) {
-          GmapData.directionsDisplay = new google.maps.DirectionsRenderer();
-        }
-        GmapData.directionsDisplay.setMap(GmapData.control.getGMap());
-
-        var directionsService = new google.maps.DirectionsService();
-        var start = GmapData.current.latitude.toString() + "," + GmapData.current.longitude.toString();
-        var request = {
-          origin: start,
-          destination: latLng,
-          travelMode: google.maps.TravelMode.WALKING
-        };
-        directionsService.route(request, function(response, status) {
-          if (status == google.maps.DirectionsStatus.OK) {
-            GmapData.directionsDisplay.setDirections(response);
+        uiGmapGoogleMapApi.then(function(maps) {
+          if (!GmapData.directionsDisplay) {
+            GmapData.directionsDisplay = new maps.DirectionsRenderer();
           }
+          GmapData.directionsDisplay.setMap(GmapData.control.getGMap());
+
+          var directionsService = new maps.DirectionsService();
+          var start = GmapData.current.latitude.toString() + "," + GmapData.current.longitude.toString();
+          var request = {
+            origin: start,
+            destination: latLng,
+            travelMode: maps.TravelMode.WALKING
+          };
+          directionsService.route(request, function(response, status) {
+            if (status == maps.DirectionsStatus.OK) {
+              GmapData.directionsDisplay.setDirections(response);
+            }
+          });
         });
       }
     };
