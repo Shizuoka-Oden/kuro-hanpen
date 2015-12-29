@@ -8,22 +8,21 @@
   /** @ngInject */
   function GMapController(GeoLocation, Categories, GmapData) {
     var vm = this;
-    vm.gmapData = GmapData;
+    vm.data = GmapData;
     GeoLocation.getCurrent().then(function(location) {
-      vm.gmapData.center = {
+      var latLon= {
         latitude: location.lat,
         longitude: location.lon
       };
-      vm.gmapData.current = {
-        latitude: location.lat,
-        longitude: location.lon
-      };
+      vm.data.center = latLon
+      vm.data.current = latLon;
     }, function() {
-      // 現在地を取得できない場合は静岡駅を中心地に設定
-      vm.gmapData.center = {
+      var latLon = {
         latitude: 34.9714699,
         longitude: 138.3869833
       };
+      vm.data.center = latLon
+      vm.data.current = latLon;
     });
 
     Categories.forEach(function(category) {
