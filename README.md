@@ -2,6 +2,18 @@
 
 [![Circle CI](https://circleci.com/gh/Shizuoka-Oden/kuro-hanpen.svg?style=svg)](https://circleci.com/gh/Shizuoka-Oden/kuro-hanpen)
 
+## Setup
+
+### OS X
+
+(Check OS X 10.10)
+
+1.  Install Xcode
+
+1.  Install Xcode Command Line Tools
+
+1.  Install Node.js (4.2 or later)
+
 ## install
 
 ```sh
