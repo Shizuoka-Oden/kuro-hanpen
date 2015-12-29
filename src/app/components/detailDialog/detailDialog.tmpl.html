@@ -2,23 +2,32 @@
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <img class="icon" ng-src="{{detailDialog.icon}}">
-        <h2>({{ detailDialog.type }}) {{ detailDialog.title }}</h2>
+        <div style="margin-right:5px;">
+          <img ng-src="{{detailDialog.icon}}" layout="row" style="margin:auto;"/>
+          <span style="font-size:10px;" layout="row" style="margin:auto;">{{ detailDialog.type }}</span>
+        </div>
+        <h2> {{ detailDialog.title }}</h2>
+        <span flex></span>
+        <md-button aria-label="colse" class="md-icon-button" ng-click="detailDialog.cancel()">
+          <md-icon md-svg-src="assets/images/close.svg"></md-icon>
+        </md-button>
       </div>
     </md-toolbar>
 
     <md-dialog-content>
       <div class="md-dialog-content">
-
         <h4>{{ detailDialog.address }}</h4>
         <h4>{{ detailDialog.description }}</h4>
       </div>
     </md-dialog-content>
 
-    <md-dialog-actions layout="row">
+    <md-dialog-actions layout="row" ng-if="detailDialog.type === 'ヒヤリハット'">
       <span flex></span>
-      <md-button style="margin-right:20px;" ng-click="detailDialog.hide()">
-        閉じる
+      <md-button class="md-warn" style="margin-right:20px;" ng-click="detailDialog.deleteConfirm()" ng-if="!detailDialog.preset && !detailDialog.isConfirm">
+        安全になったので削除する
+      </md-button>
+      <md-button class="md-warn md-raised" style="margin-right:20px;" ng-click="detailDialog.delete()" ng-if="detailDialog.isConfirm">
+        本当に削除する？
       </md-button>
     </md-dialog-actions>
   </form>

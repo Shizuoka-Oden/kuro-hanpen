@@ -6,7 +6,7 @@
     .controller('GMapController', GMapController);
 
   /** @ngInject */
-  function GMapController(GeoLocation, $scope) {
+  function GMapController(GeoLocation, Categories) {
     var vm = this;
 
     vm.zoom = 14;
@@ -30,7 +30,7 @@
       };
     });
 
-    $scope.main.categories.forEach(function(category) {
+    Categories.forEach(function(category) {
       GeoLocation.getMarkers(category.name)
         .then(function(markers) {
           category.markers = convertMarkersResponse(markers, category);
@@ -48,7 +48,8 @@
         type: marker.type,
         address: marker.address,
         title: marker.title,
-        description: marker.description
+        description: marker.description,
+        preset: marker.preset
       };
     });
   }
