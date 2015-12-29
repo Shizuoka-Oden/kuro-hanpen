@@ -16,7 +16,7 @@
     vm.categories = Categories;
 
     vm.showDetailDialog = function(ev) {
-      var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
+      var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
       $mdDialog.show({
         controller: 'DetailDialogController',
         controllerAs: 'detailDialog',
