@@ -28,6 +28,8 @@
 
 1.  Install Node.js (4.2 or later, recommend 5.3 or later)
 
+1.  Install Java Runtime
+
 1.  Install & Run [npm-windows-upgrade](https://www.npmjs.com/package/npm-windows-upgrade)
 
     1.  Launch Command Prompt
