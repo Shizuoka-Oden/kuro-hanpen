@@ -48,6 +48,19 @@
           });
 
         return deferred.promise;
+      },
+
+      regist: function(data) {
+        var deferred = $q.defer();
+
+        $http.post(apiServer + '/production/location', angular.toJson(data))
+          .then(function(response) {
+            deferred.resolve(response);
+          }, function() {
+            deferred.reject(new Error('Failed to regist location.'));
+          });
+
+        return deferred.promise;
       }
     };
   }
