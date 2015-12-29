@@ -30,7 +30,7 @@
         $http.get(apiServer + '/production/location?type=' + type)
           .then(function(response) {
             deferred.resolve(response.data.results);
-          },function(response) {
+          },function() {
             deferred.reject(new Error('Failed to load markers.'));
           });
 
@@ -43,7 +43,7 @@
         $http.delete(apiServer + '/production/location/' + id)
           .then(function(response) {
             deferred.resolve(response);
-          },function(response) {
+          },function() {
             deferred.reject(new Error('Failed to delete location.'));
           });
 

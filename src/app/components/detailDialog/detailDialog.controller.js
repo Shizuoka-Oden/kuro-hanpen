@@ -42,7 +42,7 @@
       }
 
       GeoLocation.delete(vm.id)
-      .finally(function (response) {
+      .finally(function () {
         marker.setMap(null);
         $mdDialog.hide();
       });
