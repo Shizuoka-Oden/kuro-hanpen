@@ -101,14 +101,13 @@ function bulk(filePath) {
   var type = path.basename(filePath, '.json');
   var data = JSON.parse(fs.readFileSync(filePath));
   var result = '';
-  var id = 1;
 
   for(var i = 0 ; i < data.length ; i++ ) {
     data[i].type = type;
     data[i].preset = true;
     result += '{ "index" : { "_index" : "' + awsConf.es.index + '", "_type" : "location"} }\n';
     result += JSON.stringify(data[i]) + '\n';
-  };
+  }
 
   return result;
 }
@@ -148,7 +147,7 @@ class EsRequest {
         httpResp.on('data', (chunk) => {
           body += chunk;
         });
-        httpResp.on('end', (chunk) => {
+        httpResp.on('end', () => {
           if(JSON.parse(body).errors || JSON.parse(body).message) {
             onRejected(body);
           }

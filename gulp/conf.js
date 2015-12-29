@@ -16,7 +16,8 @@ exports.paths = {
   dist: 'dist',
   data: 'data',
   tmp: '.tmp',
-  e2e: 'e2e'
+  e2e: 'e2e',
+  gulp: 'gulp'
 };
 
 /**
