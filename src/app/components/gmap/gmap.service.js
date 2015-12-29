@@ -7,6 +7,7 @@
 
   /** @ngInject */
   function Gmap($document, GmapData, Categories) {
+    /*global google*/
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
