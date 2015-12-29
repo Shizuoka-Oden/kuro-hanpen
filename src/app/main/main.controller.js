@@ -6,7 +6,7 @@
     .controller('MainController', MainController);
 
   /** @ngInject */
-  function MainController($mdSidenav, $mdMedia, $mdDialog, $document) {
+  function MainController($mdSidenav, $mdMedia, $mdDialog) {
     var vm = this;
 
     vm.toggleSideMenu = function() {
@@ -58,12 +58,11 @@
         controller: 'DetailDialogController',
         controllerAs: 'detailDialog',
         templateUrl: 'app/components/detailDialog/detailDialog.tmpl.html',
-        parent: angular.element($document.body),
         targetEvent: ev,
         clickOutsideToClose: true,
         fullscreen: useFullScreen,
         locals: {
-          location: ev.model
+          marker: ev
         }
       });
     };

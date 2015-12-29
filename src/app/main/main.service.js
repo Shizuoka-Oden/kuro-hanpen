@@ -29,10 +29,22 @@
 
         $http.get(apiServer + '/production/location?type=' + type)
           .then(function(response) {
-            if(response.status != 200) {
-              deferred.reject(new Error('Failed to load markers.'));
-            }
             deferred.resolve(response.data.results);
+          },function(response) {
+            deferred.reject(new Error('Failed to load markers.'));
+          });
+
+        return deferred.promise;
+      },
+
+      delete: function(id) {
+        var deferred = $q.defer();
+
+        $http.delete(apiServer + '/production/location/' + id)
+          .then(function(response) {
+            deferred.resolve(response);
+          },function(response) {
+            deferred.reject(new Error('Failed to delete location.'));
           });
 
         return deferred.promise;

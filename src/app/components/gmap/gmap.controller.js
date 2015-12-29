@@ -48,7 +48,8 @@
         type: marker.type,
         address: marker.address,
         title: marker.title,
-        description: marker.description
+        description: marker.description,
+        preset: marker.preset
       };
     });
   }
