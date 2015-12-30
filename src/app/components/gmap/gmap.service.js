@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($document, uiGmapGoogleMapApi, GmapData, Categories) {
+  function Gmap($document, $q, uiGmapGoogleMapApi, GmapData, Categories) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -21,31 +21,32 @@
 
       // 指定したドキュメントIDのエレメントにストリートビューを埋め込む
       setStreetView: function(latLng, documentId) {
-        uiGmapGoogleMapApi.then(function(maps) {
-          var sv = new maps.StreetViewService();
-          sv.getPanorama({
-            location: latLng,
-            radius: 50
-          }, processSVData);
+        return $q(function(resolve) {
+          uiGmapGoogleMapApi.then(function(maps) {
+            var sv = new maps.StreetViewService();
+            sv.getPanorama({
+              location: latLng,
+              radius: 50
+            }, processSVData);
 
-          function processSVData(data, status) {
-            var panorama = new maps.StreetViewPanorama($document[0].getElementById(documentId), {
-              addressControl: false,
-              zoomControl: false,
-              panControl: false
-            });
-            if (status === maps.StreetViewStatus.OK) {
-              panorama.setPano(data.location.pano);
-              panorama.setPov({
-                heading: 270,
-                pitch: 0
+            function processSVData(data, status) {
+              var panorama = new maps.StreetViewPanorama($document[0].getElementById(documentId), {
+                addressControl: false,
+                zoomControl: false,
+                panControl: false
               });
-              panorama.setVisible(true);
-            } else {
-              panorama.setVisible(false);
-              $document[0].getElementById(documentId).style.display='none';
+              var show = status === maps.StreetViewStatus.OK;
+              if (show) {
+                panorama.setPano(data.location.pano);
+                panorama.setPov({
+                  heading: 270,
+                  pitch: 0
+                });
+              }
+              panorama.setVisible(show);
+              resolve(show);
             }
-          }
+          });
         });
       },
 
