@@ -15,5 +15,5 @@
 
   angular
     .module('kuro-hanpen')
-    .constant('GmapData', gmapData);
+    .value('GmapData', gmapData);
 })();
