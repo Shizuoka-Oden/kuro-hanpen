@@ -19,7 +19,7 @@
         }
       },
 
-      // 指定したドキュメントIDのエレメントにストリートビューを埋め込む
+      // セレクタで指定した要素にストリートビューを埋め込む
       setStreetView: function(latLng, selector) {
         return $q(function(resolve, reject) {
           uiGmapGoogleMapApi.then(function(maps) {
