@@ -9,7 +9,7 @@
   function DetailDialogController($mdDialog, GeoLocation, marker, Gmap) {
     var vm = this;
     vm.id = marker.model.id;
-    vm.icon =  marker.model.icon;
+    vm.icon = marker.model.icon;
     vm.type = marker.model.type;
     vm.address = marker.model.address;
     vm.title = marker.model.title;
@@ -27,9 +27,10 @@
       lat : marker.model.latitude,
       lng : marker.model.longitude
     };
-    Gmap.setStreetView(latLng, 'pano').then(function(status) {
-      vm.panoramaHide = !status;
-    });
+    Gmap.setStreetView(latLng, '#pano')
+      .then(function(status) {
+        vm.panoramaHide = !status;
+      });
 
     vm.hide = function() {
       $mdDialog.hide();
@@ -49,9 +50,9 @@
       Gmap.deleteLocationFromMarkers(vm.id);
       GeoLocation.delete(vm.id)
       .finally(function () {
-        marker.setMap(null);
-        vm.hide();
-      });
+          marker.setMap(null);
+          vm.hide();
+        });
     };
 
     vm.route = function () {
