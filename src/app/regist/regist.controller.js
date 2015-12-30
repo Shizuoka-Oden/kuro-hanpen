@@ -2,52 +2,52 @@
 
 angular
   .module('kuro-hanpen')
+  .value('hiyaloco', {
+    type: 'ヒヤリハット',
+    address: '',
+    location: {},
+    title: '交通事故多発',
+    description: ''
+  })
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController($mdDialog, GeoLocation, $log) {
+function RegistController($mdDialog, GeoLocation, $log, hiyaloco) {
   var vm = this;
   vm.categories = [
-    "交通事故多発",
-    "急な飛び出し",
-    "朝夕通勤・通学",
-    "その他"
+    '交通事故多発',
+    '急な飛び出し',
+    '朝夕通勤・通学',
+    'その他'
   ];
+  vm.hiyaloco = hiyaloco;
+
+  vm.hiyaloco.address = '';
+  vm.hiyaloco.title = '交通事故多発';
+  vm.hiyaloco.description = '';
 
   GeoLocation.getCurrent().then(
     function(location) {
-      vm.location = {
-        latitude: location.lat,
-        longitude: location.lon
-      };
+      vm.hiyaloco.location = location;
     },
     function() {
-      vm.location = {
-        latitude: 34.9714699,
-        longitude: 138.3869833
-      };
+      alert('位置情報を取得できませんでした。');
+      // TODO: ダイアログの表示をキャンセルしたい。
+      $mdDialog.cancel();
     });
-
 
   vm.cancel = function() {
     $mdDialog.cancel();
   };
 
   vm.regist = function() {
-    var data = {
-      "type": "ヒヤリハット",
-      "address": "富士市松本326-7",
-      "location": vm.location,
-      "title": "狂犬注意",
-      "description": "むかしむかしあるところにおじいさんとおばあさんがなかよくくらしていました。"
-    };
-    GeoLocation.regist(data)
+    GeoLocation.regist(vm.hiyaloco)
       .then(function(result) {
         $log.log(result);
         $mdDialog.hide();
       },
       function(reason) {
-        $log.log(reason);
+        $log.error(reason);
       });
   };
 }
