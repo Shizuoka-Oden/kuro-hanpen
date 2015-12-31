@@ -1,0 +1,39 @@
+<md-dialog ng-cloak>
+  <form name="userfrom">
+    <md-toolbar>
+      <div class="md-toolbar-tools">
+        <md-icon md-svg-icon="assets/images/ic_account_circle_black_24px.svg"></md-icon>
+        <h2>あなたのプロフィール</h2>
+        <span flex></span>
+        <md-button aria-label="colse" class="md-icon-button" ng-click="userDialog.cancel()">
+          <md-icon md-svg-src="assets/images/close.svg"></md-icon>
+        </md-button>
+      </div>
+    </md-toolbar>
+
+    <md-dialog-content>
+      <div class="md-dialog-content">
+        <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>ユーザID</label>
+            <input name="userName" ng-model="userDialog.userid" class="md-caption" disabled>
+          </md-input-container>
+        </div>
+
+        <div layout-gt-xs="row">
+          <md-input-container class="md-block" flex-gt-xs>
+            <label>ユーザ名 (20文字まで)</label>
+            <input ng-model="userDialog.userName" ng-maxlength="20">
+          </md-input-container>
+        </div>
+      </div>
+    </md-dialog-content>
+
+    <md-dialog-actions layout="row">
+      <span flex></span>
+      <md-button style="margin-right:20px;" aria-label="save" ng-click="userDialog.save()" ng-disabled="userfrom.$error.maxlength">
+        保存する
+      </md-button>
+    </md-dialog-actions>
+  </form>
+</md-dialog>
