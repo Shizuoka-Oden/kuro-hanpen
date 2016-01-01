@@ -12,7 +12,7 @@ angular
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController($mdDialog, GeoLocation, $log, Gmap, hiyaloco) {
+function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyaloco) {
   var vm = this;
   vm.titles = [
     '交通事故多発',
@@ -25,6 +25,21 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, hiyaloco) {
   vm.hiyaloco.address = '';
   vm.hiyaloco.title = '交通事故多発';
   vm.hiyaloco.description = '';
+
+  var icon = Categories[Categories.length - 1].icon;
+  var convertDataToMarker = function(data) {
+    return {
+      id: data._id,
+      icon: icon,
+      latitude: data.location.lat,
+      longitude: data.location.lon,
+      type: data.type,
+      address: data.address,
+      title: data.title,
+      description: data.description,
+      preset: data.preset
+    };
+  };
 
   GeoLocation.getCurrent().then(
     function(location) {
@@ -44,6 +59,7 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, hiyaloco) {
     GeoLocation.regist(vm.hiyaloco)
       .then(function(result) {
         $log.log(result);
+        Gmap.addLocationToMarkers(convertDataToMarker(result.data));
         $mdDialog.hide();
       },
       function(reason) {

@@ -19,6 +19,11 @@
         }
       },
 
+      // ヒヤリハットカテゴリにマーカーを追加
+      addLocationToMarkers: function(marker) {
+        Categories[Categories.length-1].markers.push(marker);
+      },
+
       // セレクタで指定した要素にストリートビューを埋め込む
       setStreetView: function(latLng, selector) {
         return $q(function(resolve, reject) {
