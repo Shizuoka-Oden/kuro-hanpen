@@ -41,5 +41,17 @@
          fullscreen: useFullScreen
        });
      };
+
+    vm.showUserDialog = function(ev) {
+      var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+      $mdDialog.show({
+        controller: 'UserDialogController',
+        controllerAs: 'userDialog',
+        templateUrl: 'app/components/userDialog/userDialog.tmpl.html',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: useFullScreen
+      });
+    };
   }
 })();
