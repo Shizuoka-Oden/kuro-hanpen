@@ -24,13 +24,33 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button style="margin-right:20px;" ng-click="detailDialog.route()" ng-if="detailDialog.type !== 'ヒヤリ'">
+
+      <md-button style="margin-right:20px;"
+                  ng-click="detailDialog.route()"
+                  ng-if="detailDialog.type !== 'ヒヤリ'">
         現在地からここまでの経路を表示
       </md-button>
-      <md-button class="md-warn" style="margin-right:20px;" ng-click="detailDialog.deleteConfirm()" ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm">
+
+      <md-button ng-click="detailDialog.like()"
+                 ng-if="detailDialog.type === 'ヒヤリ'"
+                 ng-disabled="detailDialog.likedata.liked"
+                 class="md-primary md-raised"
+                 aria-label="Like">
+          <md-icon md-svg-src="assets/images/ic_thumb_up.svg"></md-icon>
+          {{ detailDialog.likedata.count }} 人
+      </md-button>
+
+      <md-button class="md-warn"
+                  style="margin-right:20px;"
+                  ng-click="detailDialog.deleteConfirm()"
+                  ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm">
         安全になったので削除する
       </md-button>
-      <md-button class="md-warn md-raised" style="margin-right:20px;" ng-click="detailDialog.delete()" ng-if="detailDialog.isConfirm">
+
+      <md-button class="md-warn md-raised"
+                  style="margin-right:20px;"
+                  ng-click="detailDialog.delete()"
+                  ng-if="detailDialog.isConfirm">
         本当に削除する？
       </md-button>
     </md-dialog-actions>
