@@ -12,9 +12,9 @@ angular
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController($mdDialog, GeoLocation, $log, hiyaloco) {
+function RegistController($mdDialog, GeoLocation, $log, Gmap, hiyaloco) {
   var vm = this;
-  vm.categories = [
+  vm.titles = [
     '交通事故多発',
     '急な飛び出し',
     '朝夕通勤・通学',

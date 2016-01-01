@@ -35,7 +35,7 @@
        $mdDialog.show({
          controller: 'RegistController',
          controllerAs: 'regist',
-         templateUrl: 'app/regist/regist.tmpl.html',
+         templateUrl: 'app/components/registDialog/regist.tmpl.html',
          targetEvent: ev,
          clickOutsideToClose:true,
          fullscreen: useFullScreen
