@@ -26,6 +26,9 @@
         "likes": {
           "type": "string",
           "index": "not_analyzed"
+        },
+        "likesCount": {
+          "type": "long"
         }
       }
     }
