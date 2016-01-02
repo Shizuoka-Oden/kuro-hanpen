@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories) {
+  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $log) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -80,7 +80,33 @@
             }
           });
         });
+      },
+
+      addLatLng : function (map, eventName, originalEventArgs) {
+        uiGmapGoogleMapApi.then(function(maps) {
+          var e = originalEventArgs[0];
+          var geocoder;
+          geocoder = new maps.Geocoder();
+          var lat = parseFloat(e.latLng.lat());
+          var lng = parseFloat(e.latLng.lng());
+          var latlng = new maps.LatLng(lat, lng);
+
+          geocoder.geocode({'latLng': latlng}, function(results, status) {
+            if (status == maps.GeocoderStatus.OK) {
+              if (results[0]) {
+                $log.info(lat);
+                $log.info(lng);
+                $log.info(results[0].formatted_address);
+              } else {
+                alert('No results found');
+              }
+            } else {
+              alert('Geocoder failed due to: ' + status);
+            }
+          });
+        });
       }
+
     };
   }
 })();

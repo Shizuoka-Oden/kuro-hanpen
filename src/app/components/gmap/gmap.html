@@ -1,11 +1,17 @@
-<ui-gmap-google-map center='gmap.data.center' zoom='gmap.data.zoom' options="gmap.data.options" control="gmap.data.control" ng-cloak>
+<ui-gmap-google-map center='gmap.data.center'
+                    zoom='gmap.data.zoom'
+                    options="gmap.data.options"
+                    control="gmap.data.control"
+                    events="gmap.data.events"
+                    ng-cloak>
 
   <ui-gmap-markers ng-repeat="category in main.categories"
                    models="category.markers"
                    coords="'self'"
                    icon="'icon'"
                    ng-if="category.display"
-                   click="main.showDetailDialog">
+                   click="main.showDetailDialog"
+                   >
   </ui-gmap-markers>
 
 </ui-gmap-google-map>
