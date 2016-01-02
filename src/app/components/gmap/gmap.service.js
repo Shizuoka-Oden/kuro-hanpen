@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog,  $mdMedia, $log) {
+  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog, $mdMedia, $log) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -121,6 +121,16 @@
             }
           });
         });
+      },
+
+      addLikeToCategories: function(id, user){
+        var markers = Categories[Categories.length-1].markers;
+        for (var i = 0; i <= markers.length; i++) {
+          if (markers[i].id === id) {
+            markers[i].likes.push(user);
+            break;
+          }
+        }
       }
     };
   }

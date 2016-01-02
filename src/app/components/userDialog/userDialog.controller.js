@@ -6,7 +6,7 @@
     .controller('UserDialogController', UserDialogController);
 
   /** @ngInject */
-  function UserDialogController($mdDialog, AwsCognito,$log) {
+  function UserDialogController($mdDialog, AwsCognito, $log) {
     var vm = this;
 
     AwsCognito.getUserId()
