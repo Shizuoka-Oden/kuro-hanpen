@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories) {
+  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog, $mdMedia) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -17,6 +17,11 @@
             break;
           }
         }
+      },
+
+      // ヒヤリハットカテゴリにマーカーを追加
+      addLocationToMarkers: function(marker) {
+        Categories[Categories.length-1].markers.push(marker);
       },
 
       // セレクタで指定した要素にストリートビューを埋め込む
@@ -77,6 +82,44 @@
         });
       },
 
+      addLatLng : function (map, eventName, originalEventArgs) {
+        uiGmapGoogleMapApi.then(function(maps) {
+          var e = originalEventArgs[0];
+          var geocoder;
+          geocoder = new maps.Geocoder();
+          var lat = parseFloat(e.latLng.lat());
+          var lng = parseFloat(e.latLng.lng());
+          var latlng = new maps.LatLng(lat, lng);
+
+          geocoder.geocode({'latLng': latlng}, function(results, status) {
+            if (status == maps.GeocoderStatus.OK) {
+              if (results[0]) {
+                var location = {
+                  lat: lat,
+                  lng: lng,
+                  address: results[0].formatted_address
+                }
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+                $mdDialog.show({
+                  controller: 'RegistController',
+                  controllerAs: 'regist',
+                  templateUrl: 'app/components/registDialog/regist.tmpl.html',
+                  clickOutsideToClose: true,
+                  fullscreen: useFullScreen,
+                  locals: {
+                    location: location
+                  }
+                });
+              } else {
+                alert('No results found');
+              }
+            } else {
+              alert('Geocoder failed due to: ' + status);
+            }
+          });
+        });
+      },
+
       addLikeToCategories: function(id, user){
         var markers = Categories[Categories.length-1].markers;
         for (var i = 0; i <= markers.length; i++) {
@@ -86,7 +129,6 @@
           }
         }
       }
-
     };
   }
 })();

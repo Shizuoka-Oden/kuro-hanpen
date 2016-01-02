@@ -6,7 +6,7 @@
     .controller('GMapController', GMapController);
 
   /** @ngInject */
-  function GMapController(GeoLocation, Categories, GmapData) {
+  function GMapController(GeoLocation, Categories, GmapData, Gmap) {
     var vm = this;
     vm.data = GmapData;
     GeoLocation.getCurrent().then(function(location) {
@@ -35,6 +35,12 @@
           category.markers = convertMarkersResponse(markers, category);
       });
     });
+
+    vm.data.events = {
+      click: function (map, eventName, originalEventArgs) {
+        Gmap.addLatLng(map, eventName, originalEventArgs);
+      }
+    }
   }
 
   function convertMarkersResponse(markers, category) {
