@@ -30,18 +30,6 @@
       });
     };
 
-    vm.showRegistDialog = function(ev) {
-       var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'))  && vm.customFullscreen;
-       $mdDialog.show({
-         controller: 'RegistController',
-         controllerAs: 'regist',
-         templateUrl: 'app/components/registDialog/regist.tmpl.html',
-         targetEvent: ev,
-         clickOutsideToClose:true,
-         fullscreen: useFullScreen
-       });
-     };
-
     vm.showUserDialog = function(ev) {
       var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
       $mdDialog.show({

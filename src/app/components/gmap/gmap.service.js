@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $log) {
+  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog,  $mdMedia, $log) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -97,6 +97,22 @@
                 $log.info(lat);
                 $log.info(lng);
                 $log.info(results[0].formatted_address);
+                var location = {
+                  lat: lat,
+                  lng: lng,
+                  address: results[0].formatted_address
+                }
+                var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
+                $mdDialog.show({
+                  controller: 'RegistController',
+                  controllerAs: 'regist',
+                  templateUrl: 'app/components/registDialog/regist.tmpl.html',
+                  clickOutsideToClose: true,
+                  fullscreen: useFullScreen,
+                  locals: {
+                    location: location
+                  }
+                });
               } else {
                 alert('No results found');
               }
@@ -106,7 +122,6 @@
           });
         });
       }
-
     };
   }
 })();

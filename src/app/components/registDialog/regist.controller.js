@@ -12,7 +12,7 @@ angular
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyaloco) {
+function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyaloco, location) {
   var vm = this;
   vm.titles = [
     '交通事故多発',
@@ -25,6 +25,14 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyalo
   vm.hiyaloco.address = '';
   vm.hiyaloco.title = '交通事故多発';
   vm.hiyaloco.description = '';
+
+  if (location) {
+    vm.hiyaloco.location = {
+      lat: location.lat,
+      lon: location.lng
+    };
+    vm.hiyaloco.address = location.address;
+  }
 
   var icon = Categories[Categories.length - 1].icon;
   var convertDataToMarker = function(data) {
@@ -40,16 +48,6 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyalo
       preset: data.preset
     };
   };
-
-  GeoLocation.getCurrent().then(
-    function(location) {
-      vm.hiyaloco.location = location;
-    },
-    function() {
-      alert('位置情報を取得できませんでした。');
-      // TODO: ダイアログの表示をキャンセルしたい。
-      $mdDialog.cancel();
-    });
 
   vm.cancel = function() {
     $mdDialog.cancel();
