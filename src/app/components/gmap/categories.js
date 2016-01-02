@@ -41,5 +41,4 @@
   angular
     .module('kuro-hanpen')
     .value('Categories', categories);
-
 })();

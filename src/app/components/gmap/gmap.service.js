@@ -6,7 +6,7 @@
     .factory('Gmap', Gmap);
 
   /** @ngInject */
-  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog, $mdMedia, $log) {
+  function Gmap($q, uiGmapGoogleMapApi, GmapData, Categories, $mdDialog, $mdMedia) {
     return {
       // ヒヤリハットカテゴリのマーカーから対象データを削除
       deleteLocationFromMarkers: function(id){
@@ -94,9 +94,6 @@
           geocoder.geocode({'latLng': latlng}, function(results, status) {
             if (status == maps.GeocoderStatus.OK) {
               if (results[0]) {
-                $log.info(lat);
-                $log.info(lng);
-                $log.info(results[0].formatted_address);
                 var location = {
                   lat: lat,
                   lng: lng,
