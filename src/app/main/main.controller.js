@@ -41,5 +41,17 @@
         fullscreen: useFullScreen
       });
     };
+
+    vm.showTrendingDialog = function(ev) {
+      var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+      $mdDialog.show({
+        controller: 'TrendingDialogController',
+        controllerAs: 'trendingDialog',
+        templateUrl: 'app/components/trendingDialog/trendingDialog.tmpl.html',
+        targetEvent: ev,
+        clickOutsideToClose: true,
+        fullscreen: useFullScreen
+      });
+    };
   }
 })();
