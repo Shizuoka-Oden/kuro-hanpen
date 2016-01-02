@@ -2,11 +2,18 @@
   'use strict';
 
   describe('Gmap', function() {
-    /* TODO Google Maps API を多重呼び出ししてしまうようなのでコメントアウト
     var Gmap;
     var $q, $rootScope;
+    var uiGmapGoogleMapApi;
 
-    beforeEach(module('kuro-hanpen'));
+    beforeEach(module('kuro-hanpen'), function($provide) {
+      // AngularJS Jasmine spy provided factory and callthrough - Stack Overflow
+      // http://stackoverflow.com/questions/25015747/angularjs-jasmine-spy-provided-factory-and-callthrough
+      $provide.decorator('uiGmapGoogleMapApi', function($delegate) {
+        uiGmapGoogleMapApi = jasmine.createSpy('uiGmapGoogleMapApi', $delegate);
+        return uiGmapGoogleMapApi;
+      });
+    });
 
     beforeEach(inject(function(_$q_, _$rootScope_, _Gmap_) {
       Gmap = _Gmap_;
@@ -54,6 +61,5 @@
         lng: 138.3869833
       }, '#pano');
     });
-    */
   });
 })();
