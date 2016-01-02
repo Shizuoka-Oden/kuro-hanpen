@@ -45,6 +45,7 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyalo
       address: data.address,
       title: data.title,
       description: data.description,
+      likes: [],
       preset: data.preset
     };
   };
