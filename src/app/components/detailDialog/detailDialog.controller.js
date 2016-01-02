@@ -6,7 +6,7 @@
     .controller('DetailDialogController', DetailDialogController);
 
   /** @ngInject */
-  function DetailDialogController($mdDialog, GeoLocation, marker, Gmap) {
+  function DetailDialogController($mdDialog, GeoLocation, marker, Gmap, Like, AwsCognito) {
     var vm = this;
     vm.id = marker.model.id;
     vm.icon = marker.model.icon;
@@ -20,6 +20,25 @@
     // 表示名を短くする
     if (vm.type === 'ヒヤリハット') {
       vm.type = 'ヒヤリ';
+    }
+
+    vm.likedata = {
+      count: marker.model.likes.length
+    };
+
+    AwsCognito.getUser()
+    .then(function (user) {
+      vm.user = user;
+      if (marker.model.likes.indexOf(vm.user) >= 0) {
+        vm.likedata.liked = true;
+      }
+    });
+
+    vm.like = function() {
+      vm.likedata.liked = true;
+      vm.likedata.count += 1;
+      Gmap.addLikeToCategories(vm.id, vm.user);
+      Like.post(vm.id, vm.user);
     }
 
     // 埋め込みストリートビュー表示

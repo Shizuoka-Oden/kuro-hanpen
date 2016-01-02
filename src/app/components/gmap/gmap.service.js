@@ -75,7 +75,18 @@
             }
           });
         });
+      },
+
+      addLikeToCategories: function(id, user){
+        var markers = Categories[Categories.length-1].markers;
+        for (var i = 0; i <= markers.length; i++) {
+          if (markers[i].id === id) {
+            markers[i].likes.push(user);
+            break;
+          }
+        }
       }
+
     };
   }
 })();

@@ -13,7 +13,7 @@
         IdentityPoolId: identityPoolKurohanpenId
     });
 
-    function setMyDataset(key, value){
+    function setMyDataset(key, value) {
       return $q(function(resolve, reject) {
         AWS.config.credentials.get(function() {
           var syncClient = new AWS.CognitoSyncManager();
@@ -43,7 +43,7 @@
       });
     }
 
-    function getMyDataset(key){
+    function getMyDataset(key) {
       return $q(function(resolve, reject) {
         AWS.config.credentials.get(function() {
           var syncClient = new AWS.CognitoSyncManager();
@@ -59,15 +59,36 @@
       });
     }
 
-    return {
-      getUserId: function(){
-        return $q(function(resolve, reject) {
-          AWS.config.credentials.get(function() {
-            resolve(AWS.config.credentials.identityId);
-          },function() {
-            reject(new Error('Failed to load userId.'));
-          });
+    function getUserId() {
+      return $q(function(resolve, reject) {
+        AWS.config.credentials.get(function() {
+          resolve(AWS.config.credentials.identityId);
+        },function() {
+          reject(new Error('Failed to load userId.'));
         });
+      });
+    }
+
+    return {
+      getUser: function() {
+        return $q(function(resolve) {
+          var user;
+          getUserId()
+          .then(function(userId) {
+            user = userId + "-_-";
+            return getMyDataset('userName');
+          })
+          .then(function(userName) {
+            if (userName) {
+              user += userName;
+            }
+            resolve(user);
+          })
+        });
+      },
+
+      getUserId: function() {
+        return getUserId();
       },
 
       setUserName: function(userName) {

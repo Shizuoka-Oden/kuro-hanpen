@@ -48,6 +48,7 @@
         address: marker.address,
         title: marker.title,
         description: marker.description,
+        likes: marker.likes,
         preset: marker.preset
       };
     });
