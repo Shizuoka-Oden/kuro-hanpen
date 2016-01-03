@@ -1,0 +1,33 @@
+<md-dialog ng-cloak>
+  <md-toolbar>
+    <div class="md-toolbar-tools">
+      <md-icon md-svg-icon="assets/images/ic_trending.svg"></md-icon>
+      <h2>ランキング情報</h2>
+      <span flex></span>
+      <md-button aria-label="colse" class="md-icon-button" ng-click="trendingDialog.hide()">
+        <md-icon md-svg-src="assets/images/close.svg"></md-icon>
+      </md-button>
+    </div>
+  </md-toolbar>
+
+  <md-dialog-content>
+    <md-tabs md-dynamic-height md-border-bottom>
+
+      <md-tab label="ヒヤロコシェア数">
+        <md-content class="md-padding">
+          <md-list>
+            <md-list-item class="md-3-line" ng-repeat="data in trendingDialog.shareData">
+              <md-icon md-svg-icon="assets/images/ranking_{{ $index + 1 }}.svg" ng-if="$index <= 2"></md-icon>
+              <div class="md-list-item-text" ng-class="{'md-offset': $index > 2 }">
+                <h4>{{ data.address }}</h4>
+                <h4>{{ data.title }}</h4>
+                <p>{{ data.likesCount }}人がシェアしています</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </md-tab>
+
+    </md-tabs>
+  </md-dialog-content>
+</md-dialog>
