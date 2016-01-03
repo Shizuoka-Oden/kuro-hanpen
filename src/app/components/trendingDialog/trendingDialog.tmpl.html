@@ -28,6 +28,21 @@
         </md-content>
       </md-tab>
 
+      <md-tab label="ヒヤロコ登録数">
+        <md-content class="md-padding">
+          <md-list>
+            <md-list-item class="md-3-line" ng-repeat="data in trendingDialog.ragnumData">
+              <md-icon md-svg-icon="assets/images/ranking_{{ $index + 1 }}.svg" ng-if="$index <= 2"></md-icon>
+              <div class="md-list-item-text" ng-class="{'md-offset': $index > 2 }">
+                <h4 ng-if="!data.key.split('-_-')[1]">{{ data.key.split("-_-")[0] }} さん</h4>
+                <h4 ng-if="data.key.split('-_-')[1]">{{ data.key.split("-_-")[1] }} さん</h4>
+                <p>{{ data.doc_count }}件登録してくれました！</p>
+              </div>
+            </md-list-item>
+          </md-list>
+        </md-content>
+      </md-tab>
+
     </md-tabs>
   </md-dialog-content>
 </md-dialog>
