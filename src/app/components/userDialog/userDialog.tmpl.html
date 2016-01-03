@@ -22,8 +22,8 @@
 
         <div layout-gt-xs="row">
           <md-input-container class="md-block" flex-gt-xs>
-            <label>ユーザ名 (20文字まで)</label>
-            <input ng-model="userDialog.userName" ng-maxlength="20">
+            <label>ユーザ名 (20文字まで、変更不可)</label>
+            <input ng-model="userDialog.userName" ng-maxlength="20" ng-disabled="userDialog.disable" placeholder="ランキングや登録者名に使用されます">
           </md-input-container>
         </div>
       </div>
@@ -31,7 +31,7 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button style="margin-right:20px;" aria-label="save" ng-click="userDialog.save()" ng-disabled="userfrom.$error.maxlength">
+      <md-button style="margin-right:20px;" aria-label="save" ng-click="userDialog.save()" ng-disabled="userfrom.$error.maxlength || userDialog.disable">
         保存する
       </md-button>
     </md-dialog-actions>
