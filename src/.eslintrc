@@ -1,9 +1,10 @@
 {
-  "plugins": ["angular"],
+  "plugins": ["angular", "lodash"],
   "env": {
     "browser": true,
   },
   "globals": {
     "angular": true,
+    "_": true
   }
 }
