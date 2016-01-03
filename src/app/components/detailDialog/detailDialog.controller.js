@@ -49,7 +49,7 @@
       vm.likedata.count += 1;
       Gmap.addLikeToCategories(vm.id, vm.user);
       Like.post(vm.id, vm.user);
-    }
+    };
 
     // 埋め込みストリートビュー表示
     var latLng = {

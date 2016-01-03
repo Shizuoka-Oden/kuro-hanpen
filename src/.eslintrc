@@ -1,9 +1,9 @@
 {
   "plugins": ["angular"],
   "env": {
-    "browser": true,
+    "browser": true
   },
   "globals": {
-    "angular": true,
+    "angular": true
   }
 }
