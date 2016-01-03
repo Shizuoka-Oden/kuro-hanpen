@@ -17,6 +17,11 @@
       $mdDialog.cancel();
     };
 
+    $http.get(apiServer + '/production/regnumranking')
+    .then(function(response) {
+      vm.ragnumData = response.data;
+    });
+
     $http.get(apiServer + '/production/location?type=ヒヤリハット&sort=likesCount')
     .then(function(response) {
       vm.shareData = response.data.results;

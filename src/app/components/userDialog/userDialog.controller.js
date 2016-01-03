@@ -17,6 +17,9 @@
     AwsCognito.getUserName()
     .then(function (userName) {
       vm.userName = userName;
+      if (userName) {
+        vm.disable = true;
+      }
     });
 
     vm.hide = function() {
