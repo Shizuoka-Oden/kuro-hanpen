@@ -52,7 +52,7 @@
 
       createController = function(markerModified) {
         return _$controller_('DetailDialogController', {
-          marker: _.merge({}, marker, markerModified),
+          marker: angular.merge({}, marker, markerModified),
           Gmap: Gmap,
           AwsCognito: AwsCognito
         });
