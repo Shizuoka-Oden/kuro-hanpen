@@ -97,7 +97,7 @@
                 var location = {
                   lat: lat,
                   lng: lng,
-                  address: results[0].formatted_address
+                  address: results[0].formatted_address.replace(/日本,.*静岡県/g, '')
                 }
                 var useFullScreen = ($mdMedia('sm') || $mdMedia('xs'));
                 $mdDialog.show({

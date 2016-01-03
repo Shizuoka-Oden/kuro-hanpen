@@ -18,7 +18,8 @@
       <div class="md-dialog-content">
         <h4>{{ detailDialog.address }}</h4>
         <h4>{{ detailDialog.description }}</h4>
-      <div id="pano" ng-hide="detailDialog.panoramaHide" style="min-width:300px; min-height:300px;"></div>
+        <h5 style="color: gray;">{{ detailDialog.displayName }} さんが登録しました。</h5>
+        <div id="pano" ng-hide="detailDialog.panoramaHide" style="min-width:300px; min-height:300px;"></div>
       </div>
     </md-dialog-content>
 
@@ -31,13 +32,15 @@
         現在地からここまでの経路を表示
       </md-button>
 
-      <md-button ng-click="detailDialog.like()"
+      <md-button style="margin-right:20px;"
+                 ng-click="detailDialog.like()"
                  ng-if="detailDialog.type === 'ヒヤリ'"
                  ng-disabled="detailDialog.likedata.liked"
                  class="md-primary md-raised"
                  aria-label="Like">
           <md-icon md-svg-src="assets/images/ic_thumb_up.svg"></md-icon>
           {{ detailDialog.likedata.count }} 人
+          <span style="font-size:8px;">取消不可</span>
       </md-button>
 
       <md-button class="md-warn"

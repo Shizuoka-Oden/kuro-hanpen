@@ -21,6 +21,16 @@
     if (vm.type === 'ヒヤリハット') {
       vm.type = 'ヒヤリ';
     }
+    var author = marker.model.author;
+    if (author) {
+      vm.displayName = author.split("-_-")[0];
+      var userName = author.split("-_-")[1];
+      if (userName) {
+        vm.displayName = userName;
+      }
+    } else {
+      vm.displayName = "シズオカオープンデータ";
+    }
 
     vm.likedata = {
       count: marker.model.likes.length

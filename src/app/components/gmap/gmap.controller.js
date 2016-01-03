@@ -55,6 +55,7 @@
         title: marker.title,
         description: marker.description,
         likes: marker.likes,
+        author: marker.author,
         preset: marker.preset
       };
     });

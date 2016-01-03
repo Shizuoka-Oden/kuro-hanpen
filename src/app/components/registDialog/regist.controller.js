@@ -12,12 +12,14 @@ angular
   .controller('RegistController', RegistController);
 
 /** @ngInject */
-function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyaloco, location) {
+function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyaloco, location, AwsCognito) {
   var vm = this;
   vm.titles = [
     '交通事故多発',
     '急な飛び出し',
     '朝夕通勤・通学',
+    '雨天注意',
+    '不審者情報',
     'その他'
   ];
   vm.hiyaloco = hiyaloco;
@@ -25,6 +27,12 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyalo
   vm.hiyaloco.address = '';
   vm.hiyaloco.title = '交通事故多発';
   vm.hiyaloco.description = '';
+
+  AwsCognito.getUser()
+  .then(function (user) {
+    vm.hiyaloco.author = user;
+  });
+
 
   if (location) {
     vm.hiyaloco.location = {
@@ -46,6 +54,7 @@ function RegistController($mdDialog, GeoLocation, $log, Gmap, Categories, hiyalo
       title: data.title,
       description: data.description,
       likes: [],
+      author: vm.hiyaloco.author,
       preset: data.preset
     };
   };
