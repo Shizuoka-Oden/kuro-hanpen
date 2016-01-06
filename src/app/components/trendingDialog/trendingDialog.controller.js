@@ -6,7 +6,7 @@
     .controller('TrendingDialogController', TrendingDialogController);
 
   /** @ngInject */
-  function TrendingDialogController($mdDialog, $http, apiServer) {
+  function TrendingDialogController($mdDialog, $mdMedia, $http, apiServer) {
     var vm = this;
 
     vm.hide = function() {
@@ -26,5 +26,26 @@
     .then(function(response) {
       vm.shareData = response.data.results;
     });
+
+    vm.goToDetailsDialog = function(data) {
+      vm.hide();
+      data.latitude = data.location.lat;
+      data.longitude = data.location.lon;
+      data.disableDelete = true;
+
+      var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
+      $mdDialog.show({
+        controller: 'DetailDialogController',
+        controllerAs: 'detailDialog',
+        templateUrl: 'app/components/detailDialog/detailDialog.tmpl.html',
+        clickOutsideToClose: true,
+        fullscreen: useFullScreen,
+        locals: {
+          marker: {
+            model: data
+          }
+        }
+      });
+    }
   }
 })();
