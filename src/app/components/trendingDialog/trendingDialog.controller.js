@@ -6,7 +6,7 @@
     .controller('TrendingDialogController', TrendingDialogController);
 
   /** @ngInject */
-  function TrendingDialogController($mdDialog, $mdMedia, $http, apiServer) {
+  function TrendingDialogController($mdDialog, $mdMedia, $http, apiServer, GmapData) {
     var vm = this;
 
     vm.hide = function() {
@@ -29,9 +29,12 @@
 
     vm.goToDetailsDialog = function(data) {
       vm.hide();
+      GmapData.center.latitude = data.location.lat;
+      GmapData.center.longitude = data.location.lon;
       data.latitude = data.location.lat;
       data.longitude = data.location.lon;
       data.disableDelete = true;
+      data.icon = 'assets/images/incident.png';
 
       var useFullScreen = $mdMedia('sm') || $mdMedia('xs');
       $mdDialog.show({
