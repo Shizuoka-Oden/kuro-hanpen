@@ -17,6 +17,8 @@
     vm.preset = marker.model.preset;
     vm.isConfirm = false;
     vm.panoramaHide = false;
+    vm.disableDelete = marker.model.disableDelete;
+
     // 表示名を短くする
     if (vm.type === 'ヒヤリハット') {
       vm.type = 'ヒヤリ';

@@ -16,7 +16,7 @@
       <md-tab label="ヒヤロコシェア数">
         <md-content class="md-padding">
           <md-list>
-            <md-list-item class="md-3-line" ng-repeat="data in trendingDialog.shareData">
+            <md-list-item class="md-3-line" ng-repeat="data in trendingDialog.shareData" ng-click="trendingDialog.goToDetailsDialog(data)">
               <md-icon md-svg-icon="assets/images/ranking_{{ $index + 1 }}.svg" ng-if="$index <= 2"></md-icon>
               <div class="md-list-item-text" ng-class="{'md-offset': $index > 2 }">
                 <h4>{{ data.address }}</h4>

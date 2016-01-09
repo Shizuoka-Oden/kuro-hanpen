@@ -46,7 +46,7 @@
       <md-button class="md-warn"
                   style="margin-right:20px;"
                   ng-click="detailDialog.deleteConfirm()"
-                  ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm">
+                  ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm && !detailDialog.disableDelete">
         安全になったので削除する
       </md-button>
 
