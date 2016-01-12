@@ -1,4 +1,4 @@
-<md-dialog aria-label="ヒヤロコ登録" ng-cloak>
+<md-dialog aria-label="ヒヤロコ登録" class="regist" ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -19,21 +19,21 @@
           </md-select>
         </md-input-container>
         <br>
-        <md-input-container style="width:100%;">
+        <md-input-container>
           <label>住所</label>
-          <input ng-model="regist.hiyaloco.address" style="width:100%">
+          <input ng-model="regist.hiyaloco.address">
         </md-input-container>
         <br>
-        <md-input-container style="width:100%;">
+        <md-input-container>
           <label>詳細</label>
-          <input ng-model="regist.hiyaloco.description" style="width:100%">
+          <input ng-model="regist.hiyaloco.description">
         </md-input-container>
       </div>
     </md-dialog-content>
     <md-dialog-actions layout="row">
       <span flex></span>
       <md-button class="md-raised" ng-click="regist.cancel()">キャンセル</md-button>
-      <md-button class="md-raised md-primary" ng-click="regist.regist()" style="margin-right:0px;">登録</md-button>
+      <md-button class="md-raised md-primary" ng-click="regist.regist()">登録</md-button>
     </md-dialog-actions>
   </form>
 </md-dialog>
