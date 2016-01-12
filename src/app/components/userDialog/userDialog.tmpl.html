@@ -1,4 +1,4 @@
-<md-dialog ng-cloak>
+<md-dialog class="user-dialog" ng-cloak>
   <form name="userfrom">
     <md-toolbar>
       <div class="md-toolbar-tools">
@@ -31,7 +31,7 @@
 
     <md-dialog-actions layout="row">
       <span flex></span>
-      <md-button style="margin-right:20px;" aria-label="save" ng-click="userDialog.save()" ng-disabled="userfrom.$error.maxlength || userDialog.disable">
+      <md-button aria-label="save" ng-click="userDialog.save()" ng-disabled="userfrom.$error.maxlength || userDialog.disable">
         保存する
       </md-button>
     </md-dialog-actions>
