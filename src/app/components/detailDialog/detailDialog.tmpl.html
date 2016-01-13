@@ -1,10 +1,10 @@
-<md-dialog ng-cloak>
+<md-dialog class="detail-dialog" ng-cloak>
   <form>
     <md-toolbar>
       <div class="md-toolbar-tools">
-        <div style="margin-right:5px;min-width:35px;">
-          <img ng-src="{{detailDialog.icon}}" layout="row" style="margin:auto;"/>
-          <span style="font-size:10px;" layout="row" style="margin:auto;">{{ detailDialog.type }}</span>
+        <div class="category-icon">
+          <img ng-src="{{detailDialog.icon}}" layout="row" />
+          <span layout="row">{{ detailDialog.type }}</span>
         </div>
         <h2> {{ detailDialog.title }}</h2>
         <span flex></span>
@@ -18,42 +18,42 @@
       <div class="md-dialog-content">
         <h4>{{ detailDialog.address }}</h4>
         <h4>{{ detailDialog.description }}</h4>
-        <h5 style="color: gray;">{{ detailDialog.displayName }} さんが登録しました。</h5>
-        <div id="pano" ng-hide="detailDialog.panoramaHide" style="min-width:300px; min-height:300px;"></div>
+        <h5>{{ detailDialog.displayName }} さんが登録しました。</h5>
+        <div id="pano" ng-hide="detailDialog.panoramaHide"></div>
       </div>
     </md-dialog-content>
 
     <md-dialog-actions layout="row">
       <span flex></span>
 
-      <md-button style="margin-right:20px;"
-                  ng-click="detailDialog.route()"
-                  ng-if="detailDialog.type !== 'ヒヤリ'">
+      <md-button
+        ng-click="detailDialog.route()"
+        ng-if="detailDialog.type !== 'ヒヤリ'">
         現在地からここまでの経路を表示
       </md-button>
 
-      <md-button style="margin-right:20px;"
-                 ng-click="detailDialog.like()"
-                 ng-if="detailDialog.type === 'ヒヤリ'"
-                 ng-disabled="detailDialog.likedata.liked"
-                 class="md-primary md-raised"
-                 aria-label="Like">
-          <md-icon md-svg-src="assets/images/ic_thumb_up.svg"></md-icon>
-          &nbsp{{ detailDialog.likedata.count }} 人
+      <md-button
+        ng-click="detailDialog.like()"
+        ng-if="detailDialog.type === 'ヒヤリ'"
+        ng-disabled="detailDialog.likedata.liked"
+        class="md-primary md-raised"
+        aria-label="Like">
+        <md-icon md-svg-src="assets/images/ic_thumb_up.svg"></md-icon>
+        &nbsp;{{ detailDialog.likedata.count }} 人
           <span style="font-size:8px;">取消不可</span>
       </md-button>
 
-      <md-button class="md-warn"
-                  style="margin-right:20px;"
-                  ng-click="detailDialog.deleteConfirm()"
-                  ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm && !detailDialog.disableDelete">
+      <md-button
+        class="md-warn"
+        ng-click="detailDialog.deleteConfirm()"
+        ng-if="detailDialog.type === 'ヒヤリ' && !detailDialog.preset && !detailDialog.isConfirm && !detailDialog.disableDelete">
         安全になったので削除する
       </md-button>
 
-      <md-button class="md-warn md-raised"
-                  style="margin-right:20px;"
-                  ng-click="detailDialog.delete()"
-                  ng-if="detailDialog.isConfirm">
+      <md-button
+        class="md-warn md-raised"
+        ng-click="detailDialog.delete()"
+        ng-if="detailDialog.isConfirm">
         本当に削除する？
       </md-button>
     </md-dialog-actions>

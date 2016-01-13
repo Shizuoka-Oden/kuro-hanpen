@@ -6,9 +6,37 @@
     opacity: 1;
   }
 }
-md-dialog.md-transition-in {
+
+md-dialog.detail-dialog.md-transition-in {
   animation-delay: 150ms;
   animation-duration: 50ms;
   animation-fill-mode: backwards;
   animation-name: fadeIn;
+}
+
+.detail-dialog .category-icon {
+  margin-right: 5px;
+  min-width: 35px;
+}
+
+.detail-dialog .category-icon > img {
+  margin: auto;
+}
+
+.detail-dialog .category-icon > span {
+  margin: auto;
+  font-size: 10px;
+}
+
+.detail-dialog md-dialog-content h5 {
+  color: gray;
+}
+
+#pano {
+  min-width: 300px;
+  min-height: 300px;
+}
+
+.detail-dialog md-dialog-actions md-button {
+  margin-right: 20px;
 }
