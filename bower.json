@@ -20,7 +20,8 @@
     "angular": "~1.4.2",
     "angular-google-maps": "~2.2.1",
     "angular-material": "~1.0.1",
-    "aws-sdk": "aws-sdk-js#~2.2.26"
+    "aws-sdk": "aws-sdk-js#~2.2.26",
+    "lodash": "3.8"
   },
   "devDependencies": {
     "angular-mocks": "~1.4.2"
