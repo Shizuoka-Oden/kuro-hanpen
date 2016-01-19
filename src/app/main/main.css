@@ -1,4 +1,4 @@
-@media only screen and (max-width: 400px) and (orientation: portrait) {
+@media only screen and (max-width: 360px) and (orientation: portrait) {
   /* iPhone 5s 以前でタイトルが折り返さないように調整 */
   .md-toolbar-tools {
     padding: 0 4px;
