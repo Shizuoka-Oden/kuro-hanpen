@@ -6,7 +6,7 @@
 
 ### OS X
 
-(Check OS X 10.10)
+(Check OS X 10.11)
 
 1.  Install Xcode
 
