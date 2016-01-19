@@ -22,7 +22,7 @@
     -   Install both Windows 8.1 SDK & Windows 10 SDK
 
 
-1.  Install Python 2.7 (recommend 2.7.11 or later) 
+1.  Install Python 2.7 (recommend 2.7.10 or later) 
 
     -   [Download Python | Python.org](https://www.python.org/downloads/)
 
